@@ -209,7 +209,7 @@ Realizar o cadastro de um fornecedor com sucesso. Os dados básicos da empresa s
 <h2>Diagrama de classe</h2>
 <p>As classes principais foram organizadas com base nos requisitos dos casos de uso fornecidos anteriormente, estruturando-se para promover reutilização e extensibilidade por meio de herança, agregação e composição, quando necessário. </p>
 <p>No Diagrama de Classes UML, a herança é destacada com Aluno e Professor, que herdam de PessoaFisica, e Fornecedor, que herda de Empresa. </p>
-<p>Já a composição é representada pelas listas de disciplinas e cursos presentes em Aluno e Professor. A agregação é evidenciada pela relação entre Empresa e PessoaFisica com Endereço, onde esta última atua como parte das anteriores</p>
+<p>Já a composição é representada pelas listas de disciplinas e cursos presentes em Aluno e Professor. A agregação é evidenciada pela relação entre as classes Empresa e PessoaFisica com a classe Endereço, onde essa última atua como parte das classes anteriores.</p>
 
 ![image](https://github.com/user-attachments/assets/7c4ad6b4-945e-4302-9c96-d553a81bf9cf)
 
