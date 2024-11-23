@@ -12,7 +12,7 @@ _Pessoa Jurídica_
 
 # Prototipação
 - Página inicial
-![Página inicial](prototipos\01 - inicio.png)
+![Página inicial](prototipos/01 - inicio.png)
 - Cadastro de Pessoa Física (Aluno)
 ![Cadastro de Pessoa Física (Aluno)](GestaoDadosUniversidade/prototipos/02 - cadastro_pessoa_fisica_aluno.png)
 - Cadastro de Aluno I
