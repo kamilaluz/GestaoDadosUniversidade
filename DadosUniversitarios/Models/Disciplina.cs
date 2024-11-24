@@ -2,7 +2,9 @@
 {
     public class Disciplina
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
+        public Professor Professor { get; set; }
+        public List<Aluno> Alunos { get; set; }
     }
 }
