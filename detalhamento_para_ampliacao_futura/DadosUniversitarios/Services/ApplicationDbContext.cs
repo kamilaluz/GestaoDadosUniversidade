@@ -1,14 +1,19 @@
-﻿using DadosUniversitarios.Models;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using DadosUniversitarios.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 namespace DadosUniversitarios.Services
 {
-    public class ApplicationDbContext : DbContext
-    {   
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        { }
+    public class ApplicationDbContext : Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Usuario>().Property(p => p.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Curso>().Property(p => p.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Disciplina>().Property(p => p.Id).UseIdentityAlwaysColumn();
@@ -27,6 +32,7 @@ namespace DadosUniversitarios.Services
         public DbSet<Professor> Professores { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }        
+        public DbSet<PessoaFisica> PessoaFisica { get; set; } 
         
     }
 }

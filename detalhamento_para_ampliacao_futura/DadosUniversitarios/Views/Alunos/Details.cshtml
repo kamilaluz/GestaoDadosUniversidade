@@ -1,54 +1,47 @@
 ﻿@model DadosUniversitarios.Models.Aluno
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do Aluno";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h1>Details</h1>
+<main class="w-full h-full flex justify-center items-center">
+    <div class="flex w-1/2 h-3/5">
+        <div class="bg-white w-full h-full p-6 rounded-lg shadow-lg">
+            <h1 class="font-semibold text-2xl mb-4">DETALHES DO ALUNO</h1>
+            <h3 class="text-lg mb-6 text-gray-700">Informações do Aluno</h3>
 
-<div>
-    <h4>Aluno</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NumeroMatricula)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NumeroMatricula)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CPF)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CPF)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataNascimento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telefone)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+            <div class="mb-4">
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Número de Matrícula</label>
+                    <p class="text-gray-700">@Html.DisplayFor(model => model.NumeroMatricula)</p>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Nome</label>
+                    <p class="text-gray-700">@Html.DisplayFor(model => model.Nome)</p>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">CPF</label>
+                    <p class="text-gray-700">@Html.DisplayFor(model => model.CPF)</p>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Data de Nascimento</label>
+                    <p class="text-gray-700">@Html.DisplayFor(model => model.DataNascimento)</p>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Email</label>
+                    <p class="text-gray-700">@Html.DisplayFor(model => model.Email)</p>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Telefone</label>
+                    <p class="text-gray-700">@Html.DisplayFor(model => model.Telefone)</p>
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="text-blue-600 hover:underline">Editar</a> |
+                <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista</a>
+            </div>
+        </div>
+    </div>
+</main>

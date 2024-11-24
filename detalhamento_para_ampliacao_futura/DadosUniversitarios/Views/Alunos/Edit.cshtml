@@ -1,59 +1,58 @@
 ﻿@model DadosUniversitarios.Models.Aluno
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Aluno";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h1>Edit</h1>
+<main class="w-full h-full flex justify-center items-center">
+    <div class="flex w-1/2 h-3/5">
+        <div class="bg-white w-full h-full p-6 rounded-lg shadow-lg">
+            <h1 class="font-semibold text-2xl mb-4">EDITAR ALUNO</h1>
+            <h3 class="text-lg mb-6 text-gray-700">Atualize as informações do aluno</h3>
 
-<h4>Aluno</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="NumeroMatricula" class="control-label"></label>
-                <input asp-for="NumeroMatricula" class="form-control" />
-                <span asp-validation-for="NumeroMatricula" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CPF" class="control-label"></label>
-                <input asp-for="CPF" class="form-control" />
-                <span asp-validation-for="CPF" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataNascimento" class="control-label"></label>
-                <input asp-for="DataNascimento" class="form-control" />
-                <span asp-validation-for="DataNascimento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefone" class="control-label"></label>
-                <input asp-for="Telefone" class="form-control" />
-                <span asp-validation-for="Telefone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Número de Matrícula</label>
+                    <input asp-for="NumeroMatricula" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
+                    <span asp-validation-for="NumeroMatricula" class="text-danger"></span>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Nome</label>
+                    <input asp-for="Nome" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">CPF</label>
+                    <input asp-for="CPF" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
+                    <span asp-validation-for="CPF" class="text-danger"></span>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Data de Nascimento</label>
+                    <input asp-for="DataNascimento" type="date" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
+                    <span asp-validation-for="DataNascimento" class="text-danger"></span>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Email</label>
+                    <input asp-for="Email" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="flex flex-col mb-4">
+                    <label class="font-semibold">Telefone</label>
+                    <input asp-for="Telefone" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
+                    <span asp-validation-for="Telefone" class="text-danger"></span>
+                </div>
+
+                <div class="flex justify-between">
+                    <button type="submit" class="btn btn-primary bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+                        Salvar
+                    </button>
+                    <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</main>

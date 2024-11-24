@@ -1,65 +1,47 @@
 ﻿@model IEnumerable<DadosUniversitarios.Models.Aluno>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Listagem de Alunos";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h1>Index</h1>
+<main class="w-full h-full flex justify-center items-center">
+    <div class="bg-white w-full p-6 rounded-lg shadow-lg">
+        <h1 class="font-semibold text-2xl mb-4">ALUNOS CADASTRADOS</h1>
+        <p class="mb-4 text-lg">
+            <a asp-action="Create" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">Cadastrar Novo Aluno</a>
+        </p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroMatricula)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CPF)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataNascimento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroMatricula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CPF)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataNascimento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <table class="min-w-full table-auto text-sm text-left">
+            <thead>
+                <tr class="border-b border-gray-200">
+                    <th class="px-4 py-2 font-semibold">Matrícula</th>
+                    <th class="px-4 py-2 font-semibold">Nome</th>
+                    <th class="px-4 py-2 font-semibold">CPF</th>
+                    <th class="px-4 py-2 font-semibold">Data Nascimento</th>
+                    <th class="px-4 py-2 font-semibold">Email</th>
+                    <th class="px-4 py-2 font-semibold">Telefone</th>
+                    <th class="px-4 py-2 font-semibold"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <td class="px-4 py-2">@Html.DisplayFor(modelItem => item.NumeroMatricula)</td>
+                        <td class="px-4 py-2">@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td class="px-4 py-2">@Html.DisplayFor(modelItem => item.CPF)</td>
+                        <td class="px-4 py-2">@Html.DisplayFor(modelItem => item.DataNascimento)</td>
+                        <td class="px-4 py-2">@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td class="px-4 py-2">@Html.DisplayFor(modelItem => item.Telefone)</td>
+                        <td class="px-4 py-2">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="text-blue-600 hover:underline">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id" class="text-green-600 hover:underline">Detalhes</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-red-600 hover:underline">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DadosUniversitarios.Models.Curso>
+
+@{
+    ViewData["Title"] = "Lista de Cursos";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<main class="w-full h-full flex justify-center items-center">
+    <div class="bg-white w-full p-6 rounded-lg shadow-lg">
+        <h1 class="font-semibold text-2xl mb-4">LISTA DE CURSOS</h1>
+        <p class="mb-6">
+            <a asp-action="Create" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Criar Novo Curso</a>
+        </p>
+
+        <table class="min-w-full table-auto">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nome</th>
+                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="border-b">
+                        <td class="px-4 py-2 text-sm text-gray-700">
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td class="px-4 py-2 text-sm text-gray-700">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="text-blue-600 hover:underline">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id" class="text-blue-600 hover:underline">Detalhes</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-red-600 hover:underline">Deletar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

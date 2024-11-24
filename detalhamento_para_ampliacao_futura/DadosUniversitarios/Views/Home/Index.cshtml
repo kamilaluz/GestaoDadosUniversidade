@@ -2,7 +2,37 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="text-center">
+        <h1 class="display-4">Bem-vindo ao Sistema da Universidade</h1>
+        <p class="lead">Escolha uma das opções abaixo para gerenciar informações da universidade.</p>
+    </div>
+    <hr />
+    <div class="row text-center mt-4">
+        <!-- Opção de Cadastro -->
+        <div class="col-md-6 col-sm-12">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title">Cadastros</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Acesse as telas de cadastro para adicionar novos registros no sistema.</p>
+                    <a asp-controller="Home" asp-action="Cadastros" class="btn btn-primary">Acessar Cadastros</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Opção de Consultas -->
+        <div class="col-md-6 col-sm-12 mt-4 mt-md-0">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title">Consultas</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Consulte informações já cadastradas na universidade de forma rápida e prática.</p>
+                    <a asp-controller="Home" asp-action="Consultas" class="btn btn-success">Acessar Consultas</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,32 @@
+﻿@model DadosUniversitarios.Models.Curso
+
+@{
+    ViewData["Title"] = "Detalhes do Curso";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<main class="w-full h-full flex justify-center items-center">
+    <div class="bg-white w-full p-6 rounded-lg shadow-lg">
+        <h1 class="font-semibold text-2xl mb-4">DETALHES DO CURSO</h1>
+        <h4 class="font-medium text-xl mb-4">Informações do Curso</h4>
+        <hr class="mb-6" />
+
+        <dl class="space-y-4">
+            <div>
+                <dt class="font-medium text-gray-700">Nome do Curso</dt>
+                <dd class="text-lg text-gray-900">@Model.Nome</dd>
+            </div>
+        </dl>
+
+        <div class="mt-6 flex justify-between">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Editar</a>
+            <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista de cursos</a>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

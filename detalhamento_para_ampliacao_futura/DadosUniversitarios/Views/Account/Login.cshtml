@@ -1,0 +1,64 @@
+﻿@using DadosUniversitarios.ViewModels
+@model AccountLoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<main class="w-full min-h-screen flex justify-center items-center bg-gray-50">
+    <div class="flex flex-col w-1/2 h-3/5 bg-white shadow-lg rounded-lg">
+        <!-- Botão Voltar -->
+        <div class="w-full flex justify-start p-4">
+            <a asp-action="Index" asp-controller="Home" class="text-blue-600 font-semibold hover:underline">
+                &larr; Voltar
+            </a>
+        </div>
+
+        <div class="flex flex-col w-full p-8">
+            <!-- FORM -->
+            <form asp-action="Login" class="flex flex-col items-center justify-center w-full">
+                <div class="text-center my-4">
+                    <h1 class="font-semibold text-2xl text-gray-700">FAÇA SEU LOGIN</h1>
+                    <p class="text-sm text-gray-500">Já tem uma conta? Faça login abaixo.</p>
+                </div>
+                <!-- USERNAME -->
+                <div class="w-full flex flex-col items-center mb-4">
+                    <div class="w-full mb-1">
+                        <label asp-for="Username" class="font-semibold text-gray-600">Nome de Usuário</label>
+                    </div>
+                    <div class="w-full relative flex items-center border-2 border-gray-300 rounded-md px-4 py-2">
+                        <input asp-for="Username" type="text" placeholder="Digite seu nome de usuário" class="w-full py-2 px-3 text-sm text-gray-700 border-0 focus:ring-2 focus:ring-blue-600 focus:outline-none bg-transparent">
+                    </div>
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="w-full flex flex-col items-center mb-4">
+                    <div class="w-full mb-1">
+                        <label asp-for="Password" class="font-semibold text-gray-600">Senha</label>
+                    </div>
+                    <div class="w-full relative flex items-center border-2 border-gray-300 rounded-md px-4 py-2">
+                        <input asp-for="Password" type="password" placeholder="Digite sua senha" class="w-full py-2 px-3 text-sm text-gray-700 border-0 focus:ring-2 focus:ring-blue-600 focus:outline-none bg-transparent">
+                    </div>
+                </div>
+
+                <div class="flex justify-between w-full mb-4">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 cursor-pointer" checked>
+                        <span class="ml-2 text-sm">Lembrar de mim</span>
+                    </label>
+                    <a class="hover:underline text-sm text-blue-600" href="">Esqueci minha senha</a>
+                </div>
+
+                <div class="w-full flex justify-center">
+                    <input class="w-[70%] bg-[#fa6632] hover:bg-[#d6430e] transition cursor-pointer text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-2" type="submit" value="Entrar">
+                </div>
+
+                <div class="flex my-2">
+                    <p class="text-sm text-gray-600">Não possui uma conta?</p>
+                    <a asp-action="Register" class="hover:underline text-blue-600 font-semibold ml-2">Registrar-se</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+

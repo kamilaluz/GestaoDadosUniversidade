@@ -1,0 +1,38 @@
+﻿@model DadosUniversitarios.Models.Disciplina
+
+@{
+    ViewData["Title"] = "Cadastrar Disciplina";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<main class="w-full h-full flex justify-center items-center">
+    <div class="bg-white w-full p-6 rounded-lg shadow-lg">
+        <h1 class="font-semibold text-2xl mb-4">CADASTRAR DISCIPLINA</h1>
+        <h4 class="font-medium text-xl mb-4">Nova Disciplina</h4>
+        <hr class="mb-6" />
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+
+            <div class="mb-4">
+                <label asp-for="Nome" class="block text-sm font-medium text-gray-700">Nome da Disciplina</label>
+                <input asp-for="Nome" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                <span asp-validation-for="Nome" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <input type="submit" value="Cadastrar" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />
+            </div>
+        </form>
+
+        <div class="mt-4">
+            <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista de disciplinas</a>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

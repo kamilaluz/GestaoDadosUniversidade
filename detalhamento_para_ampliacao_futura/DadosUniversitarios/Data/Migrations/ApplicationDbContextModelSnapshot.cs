@@ -201,6 +201,9 @@ namespace DadosUniversitarios.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Numero")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Enderecos");

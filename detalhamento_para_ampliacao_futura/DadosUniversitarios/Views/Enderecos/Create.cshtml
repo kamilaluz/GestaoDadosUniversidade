@@ -1,0 +1,76 @@
+﻿@model DadosUniversitarios.Models.Endereco
+
+@{
+    ViewData["Title"] = "Cadastrar Endereço";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<main class="w-full h-full flex justify-center items-center">
+    <div class="bg-white w-full p-6 rounded-lg shadow-lg">
+        <h1 class="font-semibold text-2xl mb-4">CADASTRAR ENDEREÇO</h1>
+        <h4 class="font-medium text-xl mb-4">Novo Endereço</h4>
+        <hr class="mb-6" />
+
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+
+            <!-- Campo CEP -->
+            <div class="mb-4">
+                <label asp-for="Cep" class="block text-sm font-medium text-gray-700">CEP</label>
+                <input asp-for="Cep" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                <span asp-validation-for="Cep" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Campo Nome da Rua -->
+            <div class="mb-4">
+                <label asp-for="NomeRua" class="block text-sm font-medium text-gray-700">Nome da Rua</label>
+                <input asp-for="NomeRua" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                <span asp-validation-for="NomeRua" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Campo Número -->
+            <div class="mb-4">
+                <label asp-for="Numero" class="block text-sm font-medium text-gray-700">Número</label>
+                <input asp-for="Numero" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                <span asp-validation-for="Numero" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Campo Bairro -->
+            <div class="mb-4">
+                <label asp-for="Bairro" class="block text-sm font-medium text-gray-700">Bairro</label>
+                <input asp-for="Bairro" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                <span asp-validation-for="Bairro" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Campo Cidade -->
+            <div class="mb-4">
+                <label asp-for="Cidade" class="block text-sm font-medium text-gray-700">Cidade</label>
+                <input asp-for="Cidade" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                <span asp-validation-for="Cidade" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Campo Estado -->
+            <div class="mb-4">
+                <label asp-for="Estado" class="block text-sm font-medium text-gray-700">Estado</label>
+                <input asp-for="Estado" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                <span asp-validation-for="Estado" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Botão de Submissão -->
+            <div class="mb-4">
+                <input type="submit" value="Cadastrar" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />
+            </div>
+        </form>
+
+        <!-- Link para Voltar -->
+        <div class="mt-4">
+            <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista de endereços</a>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
