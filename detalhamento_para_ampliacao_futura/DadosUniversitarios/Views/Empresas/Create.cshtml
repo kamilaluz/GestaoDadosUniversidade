@@ -5,63 +5,75 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<main class="w-full h-full flex justify-center items-center">
-    <div class="bg-white w-full p-6 rounded-lg shadow-lg">
-        <h1 class="font-semibold text-2xl mb-4">CADASTRAR EMPRESA</h1>
-        <h4 class="font-medium text-xl mb-4">Nova Empresa</h4>
-        <hr class="mb-6" />
+<main class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6">
+        <form asp-action="Create" class="space-y-6">
+            <!-- TÍTULO -->
+            <div class="text-center">
+                <h1 class="font-semibold text-2xl text-gray-700">Cadastrar Empresa</h1>
+                <p class="text-sm text-gray-500">Preencha os dados da empresa</p>
+            </div>
 
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+            <!-- MENSAGEM DE VALIDAÇÃO -->
+            <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
 
-            <!-- Campo Nome -->
-            <div class="mb-4">
-                <label asp-for="Nome" class="block text-sm font-medium text-gray-700">Nome da Empresa</label>
-                <input asp-for="Nome" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <!-- CAMPOS DO FORMULÁRIO -->
+            <!-- Nome da Empresa -->
+            <div>
+                <label asp-for="Nome" class="block text-sm font-semibold text-gray-700">Nome da Empresa</label>
+                <input asp-for="Nome" type="text" placeholder="Digite o nome da empresa"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
                 <span asp-validation-for="Nome" class="text-red-600 text-sm"></span>
             </div>
 
-            <!-- Campo CNPJ -->
-            <div class="mb-4">
-                <label asp-for="CNPJ" class="block text-sm font-medium text-gray-700">CNPJ</label>
-                <input asp-for="CNPJ" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <!-- CNPJ -->
+            <div>
+                <label asp-for="CNPJ" class="block text-sm font-semibold text-gray-700">CNPJ</label>
+                <input asp-for="CNPJ" type="text" placeholder="Digite o CNPJ"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
                 <span asp-validation-for="CNPJ" class="text-red-600 text-sm"></span>
             </div>
 
-            <!-- Campo Email -->
-            <div class="mb-4">
-                <label asp-for="Email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input asp-for="Email" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <!-- Email -->
+            <div>
+                <label asp-for="Email" class="block text-sm font-semibold text-gray-700">Email</label>
+                <input asp-for="Email" type="email" placeholder="Digite o email"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
                 <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
             </div>
 
-            <!-- Campo Telefone -->
-            <div class="mb-4">
-                <label asp-for="Telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
-                <input asp-for="Telefone" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <!-- Telefone -->
+            <div>
+                <label asp-for="Telefone" class="block text-sm font-semibold text-gray-700">Telefone</label>
+                <input asp-for="Telefone" type="tel" placeholder="Digite o telefone"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
                 <span asp-validation-for="Telefone" class="text-red-600 text-sm"></span>
             </div>
 
-            <!-- Campo Nome do Serviço -->
-            <div class="mb-4">
-                <label asp-for="NomeServico" class="block text-sm font-medium text-gray-700">Nome do Serviço</label>
-                <input asp-for="NomeServico" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <!-- Nome do Serviço -->
+            <div>
+                <label asp-for="NomeServico" class="block text-sm font-semibold text-gray-700">Nome do Serviço</label>
+                <input asp-for="NomeServico" type="text" placeholder="Digite o nome do serviço"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
                 <span asp-validation-for="NomeServico" class="text-red-600 text-sm"></span>
             </div>
 
-            <!-- Botão de Submissão -->
-            <div class="mb-4">
-                <input type="submit" value="Cadastrar" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />
+            <!-- BOTÃO DE SUBMISSÃO -->
+            <div>
+                <input type="submit" value="Cadastrar"
+                       class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200" />
+            </div>
+
+            <!-- LINK PARA VOLTAR -->
+            <div class="text-center mt-4">
+                <button type="button" onclick="window.history.back()"
+                        class="text-blue-600 hover:underline text-sm">
+                    Voltar para a página anterior
+                </button>
             </div>
         </form>
-
-        <!-- Link para Voltar -->
-        <div class="mt-4">
-            <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista de empresas</a>
-        </div>
     </div>
 </main>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

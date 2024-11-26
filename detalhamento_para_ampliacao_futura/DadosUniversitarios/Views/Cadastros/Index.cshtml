@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Cadastros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container py-4">
+    <!-- Título da Página -->
+    <div class="text-center mb-5">
+        <h1 class="h3 font-weight-bold text-dark">Gestão de Cadastros</h1>
+        <p class="text-muted">Escolha uma das opções abaixo para gerenciar os cadastros.</p>
+    </div>
+
+    <!-- Opções de Cadastro -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Cartão de Cadastro de Endereço -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Enderecos" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-info bg-opacity-10 text-info mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Endereço</h5>
+                        <p class="card-text text-muted">Cadastre novos endereços para os registros.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Cartão de Cadastro de Disciplina -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Disciplinas" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-warning bg-opacity-10 text-warning mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-book fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Disciplinas</h5>
+                        <p class="card-text text-muted">Gerencie as disciplinas oferecidas.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Cartão de Cadastro de Curso -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Cursos" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-danger bg-opacity-10 text-danger mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-university fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Cursos</h5>
+                        <p class="card-text text-muted">Cadastre e edite os cursos disponíveis.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</main>

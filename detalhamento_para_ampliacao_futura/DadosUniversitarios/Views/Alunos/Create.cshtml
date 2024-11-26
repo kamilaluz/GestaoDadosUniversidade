@@ -5,90 +5,72 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<main class="w-full h-full flex justify-center items-center">
-    <div class="flex w-1/2 h-3/5">
-        <div class="bg-white w-1/2 h-full">
-            <form asp-action="Create" class="flex flex-col items-center justify-center h-full">
-                <div class="text-center my-4">
-                    <h1 class="font-semibold text-2xl">CADASTRAR ALUNO</h1>
-                    <p class="text-[14px]">Preencha os dados abaixo</p>
-                </div>
+<main class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+        <form asp-action="Create" class="space-y-6">
+            <!-- TÍTULO -->
+            <div class="text-center">
+                <h1 class="font-semibold text-2xl text-gray-700">Cadastrar Aluno</h1>
+                <p class="text-sm text-gray-500">Preencha os dados abaixo</p>
+            </div>
 
-                <!-- NUMERO DE MATRÍCULA -->
-                <div class="w-full flex flex-col items-center">
-                    <div class="relative left-0 w-[85%] m-1">
-                        <label asp-for="NumeroMatricula" class="font-semibold">Número de Matrícula</label>
-                    </div>
-                    <div class="w-[85%] border-opacity-40 relative flex items-center border cursor-pointer mb-4">
-                        <input asp-for="NumeroMatricula" type="text" placeholder="Digite o número de matrícula" class="border-0 text-opacity-90 pl-14 relative z-10 w-full py-3 pr-3 text-sm bg-transparent transition ring-[2.5px] focus:ring-blue-600 hover:ring-blue-600 outline-none">
-                        <div class="absolute inset-0 flex items-center">
-                            <button asp-for="NumeroMatricula" type="submit" class="relative z-20 p-2 pl-4 border-none opacity-80">
-                                <svg class="text-xl w-[26px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13Z"></path></svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <!-- NÚMERO DE MATRÍCULA -->
+            <div>
+                <label asp-for="NumeroMatricula" class="block text-sm font-semibold text-gray-700">Número de Matrícula</label>
+                <input asp-for="NumeroMatricula" type="text" placeholder="Digite o número de matrícula"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            </div>
 
-                <!-- NOME -->
-                <div class="w-full flex flex-col items-center">
-                    <div class="relative left-0 w-[85%] m-1">
-                        <label asp-for="Nome" class="font-semibold">Nome</label>
-                    </div>
-                    <div class="w-[85%] border-opacity-40 relative flex items-center border cursor-pointer mb-4">
-                        <input asp-for="Nome" type="text" placeholder="Digite o nome do aluno" class="border-0 text-opacity-90 pl-14 relative z-10 w-full py-3 pr-3 text-sm bg-transparent transition ring-[2.5px] focus:ring-blue-600 hover:ring-blue-600 outline-none">
-                    </div>
-                </div>
+            <!-- NOME -->
+            <div>
+                <label asp-for="Nome" class="block text-sm font-semibold text-gray-700">Nome</label>
+                <input asp-for="Nome" type="text" placeholder="Digite o nome do aluno"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            </div>
 
-                <!-- CPF -->
-                <div class="w-full flex flex-col items-center">
-                    <div class="relative left-0 w-[85%] m-1">
-                        <label asp-for="CPF" class="font-semibold">CPF</label>
-                    </div>
-                    <div class="w-[85%] border-opacity-40 relative flex items-center border cursor-pointer mb-4">
-                        <input asp-for="CPF" type="text" placeholder="Digite o CPF" class="border-0 text-opacity-90 pl-14 relative z-10 w-full py-3 pr-3 text-sm bg-transparent transition ring-[2.5px] focus:ring-blue-600 hover:ring-blue-600 outline-none">
-                    </div>
-                </div>
+            <!-- CPF -->
+            <div>
+                <label asp-for="CPF" class="block text-sm font-semibold text-gray-700">CPF</label>
+                <input asp-for="CPF" type="text" placeholder="Digite o CPF"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            </div>
 
-                <!-- DATA DE NASCIMENTO -->
-                <div class="w-full flex flex-col items-center">
-                    <div class="relative left-0 w-[85%] m-1">
-                        <label asp-for="DataNascimento" class="font-semibold">Data de Nascimento</label>
-                    </div>
-                    <div class="w-[85%] border-opacity-40 relative flex items-center border cursor-pointer mb-4">
-                        <input asp-for="DataNascimento" type="date" class="border-0 text-opacity-90 pl-14 relative z-10 w-full py-3 pr-3 text-sm bg-transparent transition ring-[2.5px] focus:ring-blue-600 hover:ring-blue-600 outline-none">
-                    </div>
-                </div>
+            <!-- DATA DE NASCIMENTO -->
+            <div>
+                <label asp-for="DataNascimento" class="block text-sm font-semibold text-gray-700">Data de Nascimento</label>
+                <input asp-for="DataNascimento" type="date"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            </div>
 
-                <!-- EMAIL -->
-                <div class="w-full flex flex-col items-center">
-                    <div class="relative left-0 w-[85%] m-1">
-                        <label asp-for="Email" class="font-semibold">Email</label>
-                    </div>
-                    <div class="w-[85%] border-opacity-40 relative flex items-center border cursor-pointer mb-4">
-                        <input asp-for="Email" type="email" placeholder="Digite o email" class="border-0 text-opacity-90 pl-14 relative z-10 w-full py-3 pr-3 text-sm bg-transparent transition ring-[2.5px] focus:ring-blue-600 hover:ring-blue-600 outline-none">
-                    </div>
-                </div>
+            <!-- EMAIL -->
+            <div>
+                <label asp-for="Email" class="block text-sm font-semibold text-gray-700">Email</label>
+                <input asp-for="Email" type="email" placeholder="Digite o email"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            </div>
 
-                <!-- TELEFONE -->
-                <div class="w-full flex flex-col items-center">
-                    <div class="relative left-0 w-[85%] m-1">
-                        <label asp-for="Telefone" class="font-semibold">Telefone</label>
-                    </div>
-                    <div class="w-[85%] border-opacity-40 relative flex items-center border cursor-pointer mb-4">
-                        <input asp-for="Telefone" type="text" placeholder="Digite o telefone" class="border-0 text-opacity-90 pl-14 relative z-10 w-full py-3 pr-3 text-sm bg-transparent transition ring-[2.5px] focus:ring-blue-600 hover:ring-blue-600 outline-none">
-                    </div>
-                </div>
+            <!-- TELEFONE -->
+            <div>
+                <label asp-for="Telefone" class="block text-sm font-semibold text-gray-700">Telefone</label>
+                <input asp-for="Telefone" type="text" placeholder="Digite o telefone"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
+            </div>
 
-                <!-- BOTÃO DE SUBMISSÃO -->
-                <div class="w-full flex justify-center">
-                    <input type="submit" value="Cadastrar" class="w-[70%] bg-[#fa6632] hover:bg-[#d6430e] transition cursor-pointer text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-2" />
-                </div>
+            <!-- BOTÃO DE SUBMISSÃO -->
+            <div>
+                <input type="submit" value="Cadastrar"
+                       class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200" />
+            </div>
 
-                <!-- LINKS DE NAVEGAÇÃO -->
-                <div class="flex w-[85%] justify-center items-center my-4">
-                    <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista</a>
-                </div>
-            </form>
-        </div>
+            <!-- LINK PARA VOLTAR -->            
+            <div class="text-center mt-4">
+                <button type="button" onclick="window.history.back()"
+                        class="text-blue-600 hover:underline text-sm">
+                    Voltar para a página anterior
+                </button>
+            </div>
+
+        </form>
     </div>
 </main>
+

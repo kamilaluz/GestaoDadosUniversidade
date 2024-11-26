@@ -1,65 +1,120 @@
 ﻿@model IEnumerable<DadosUniversitarios.Models.Endereco>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Endereços";
 }
 
-<h1>Index</h1>
+<main class="container py-4">
+    <!-- Título da Página -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 font-weight-bold text-dark">Endereços Cadastrados</h1>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus me-2"></i>Novo Endereço
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Cep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeRua)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Numero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bairro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeRua)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Numero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bairro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    <!-- Tabela de Endereços -->
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead style="background-color: #f8f9fa; color: #343a40;">
+                <tr>
+                    <th>CEP</th>
+                    <th>Nome da rua</th>
+                    <th>Número</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Bairro)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Cidade)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Estado)</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Cep)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NomeRua)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Numero)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Bairro)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Cidade)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning me-1">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                                   data-bs-target="#deleteModal" data-id="@item.Id" data-name="@item.NomeRua">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">Nenhum endereço encontrado.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Tem certeza de que deseja excluir o endereço "<span id="deleteName"></span>"?
+                    </div>
+                    <div class="modal-footer">
+                        <form id="deleteForm" method="post" asp-action="Delete">
+                            <input type="hidden" name="id" id="deleteId" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Paginação -->
+    <nav aria-label="Navegação de página">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#">Anterior</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">Próximo</a>
+            </li>
+        </ul>
+    </nav>
+</main>
+
+@section Scripts {
+    <script>
+        const deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget; // Botão que disparou o modal
+            const id = button.getAttribute('data-id');
+            const name = button.getAttribute('data-name');
+
+            // Atualiza os campos do modal
+            document.getElementById('deleteId').value = id;
+            document.getElementById('deleteName').textContent = name;
+        });
+    </script>
 }
-    </tbody>
-</table>

@@ -8,14 +8,13 @@
 <main class="w-full h-screen flex justify-center items-center bg-gray-100">
     <div class="flex w-4/5 lg:w-1/2 h-auto bg-white shadow-lg rounded-lg">
         <div class="w-full px-6 py-8">
-            <!-- Voltar -->
-            <a asp-action="Login" class="flex items-center text-blue-600 hover:underline mb-4">
-                <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
-                </svg>
-                Voltar
-            </a>
-
+            <!-- LINK PARA VOLTAR -->
+            <div class="text-center mt-4">
+                <button type="button" onclick="window.history.back()"
+                        class="text-blue-600 hover:underline text-sm">
+                    Voltar
+                </button>
+            </div>
             <!-- Formulário -->
             <form asp-action="Register" class="flex flex-col space-y-6">
                 <div class="text-center">

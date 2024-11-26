@@ -24,24 +24,7 @@ namespace DadosUniversitarios.Controllers
         {
             return View(await _context.Enderecos.ToListAsync());
         }
-
-        // GET: Enderecos/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var endereco = await _context.Enderecos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (endereco == null)
-            {
-                return NotFound();
-            }
-
-            return View(endereco);
-        }
+        
 
         // GET: Enderecos/Create
         public IActionResult Create()

@@ -5,29 +5,40 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<main class="w-full h-full flex justify-center items-center">
-    <div class="bg-white w-full p-6 rounded-lg shadow-lg">
-        <h1 class="font-semibold text-2xl mb-4">CADASTRAR CURSO</h1>
-        <h4 class="font-medium text-xl mb-4">Novo Curso</h4>
-        <hr class="mb-6" />
+<main class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+        <form asp-action="Create" class="space-y-6">
+            <!-- TÍTULO -->
+            <div class="text-center">
+                <h1 class="font-semibold text-2xl text-gray-700">Cadastrar Curso</h1>
+                <p class="text-sm text-gray-500">Preencha os dados abaixo</p>
+            </div>
 
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+            <!-- MENSAGEM DE VALIDAÇÃO -->
+            <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
 
-            <div class="mb-4">
-                <label asp-for="Nome" class="block text-sm font-medium text-gray-700">Nome do Curso</label>
-                <input asp-for="Nome" class="form-control mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <!-- NOME DO CURSO -->
+            <div>
+                <label asp-for="Nome" class="block text-sm font-semibold text-gray-700">Nome do Curso</label>
+                <input asp-for="Nome" type="text" placeholder="Digite o nome do curso"
+                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
                 <span asp-validation-for="Nome" class="text-red-600 text-sm"></span>
             </div>
 
-            <div class="mb-4">
-                <input type="submit" value="Cadastrar" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50" />
+            <!-- BOTÃO DE SUBMISSÃO -->
+            <div>
+                <input type="submit" value="Cadastrar"
+                       class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200" />
+            </div>
+
+            <!-- LINK PARA VOLTAR -->
+            <div class="text-center mt-4">
+                <button type="button" onclick="window.history.back()"
+                        class="text-blue-600 hover:underline text-sm">
+                    Voltar para a página anterior
+                </button>
             </div>
         </form>
-
-        <div class="mt-4">
-            <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista de cursos</a>
-        </div>
     </div>
 </main>
 

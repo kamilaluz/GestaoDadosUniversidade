@@ -1,5 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
 <div class="container mt-4">
@@ -9,28 +12,54 @@
     </div>
     <hr />
     <div class="row text-center mt-4">
-        <!-- Opção de Cadastro -->
-        <div class="col-md-6 col-sm-12">
+        <!-- Opção de Cadastros -->
+        <div class="col-md-3 col-sm-6 mb-4">
             <div class="card border-primary">
                 <div class="card-header bg-primary text-white">
                     <h5 class="card-title">Cadastros</h5>
                 </div>
                 <div class="card-body">
                     <p class="card-text">Acesse as telas de cadastro para adicionar novos registros no sistema.</p>
-                    <a asp-controller="Home" asp-action="Cadastros" class="btn btn-primary">Acessar Cadastros</a>
+                    <a asp-controller="Cadastros" asp-action="Index" class="btn btn-primary">Acessar Cadastros</a>
                 </div>
             </div>
         </div>
 
-        <!-- Opção de Consultas -->
-        <div class="col-md-6 col-sm-12 mt-4 mt-md-0">
-            <div class="card border-success">
-                <div class="card-header bg-success text-white">
-                    <h5 class="card-title">Consultas</h5>
+        <!-- Opção de Alunos -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-info">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title">Alunos</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Consulte informações já cadastradas na universidade de forma rápida e prática.</p>
-                    <a asp-controller="Home" asp-action="Consultas" class="btn btn-success">Acessar Consultas</a>
+                    <p class="card-text">Gerencie o cadastro e informações dos alunos.</p>
+                    <a asp-controller="Alunos" asp-action="Index" class="btn btn-info">Acessar Alunos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Opção de Professores -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-white">
+                    <h5 class="card-title">Professores</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Cadastre e gerencie informações dos professores.</p>
+                    <a asp-controller="Professores" asp-action="Index" class="btn btn-warning">Acessar Professores</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Opção de Empresas -->
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title">Empresas</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Cadastre e gerencie as empresas parceiras.</p>
+                    <a asp-controller="Empresas" asp-action="Index" class="btn btn-success">Acessar Empresas</a>
                 </div>
             </div>
         </div>
