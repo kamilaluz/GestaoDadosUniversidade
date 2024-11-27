@@ -17,6 +17,8 @@
             <!-- MENSAGEM DE VALIDAÇÃO -->
             <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
 
+            <!-- Campo oculto para Id -->
+            <input asp-for="Id" type="hidden">
             <!-- NOME DA DISCIPLINA -->
             <div>
                 <label asp-for="Nome" class="block text-sm font-semibold text-gray-700">Nome da Disciplina</label>

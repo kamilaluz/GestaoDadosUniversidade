@@ -2,39 +2,61 @@
 
 @{
     ViewData["Title"] = "Lista de Cursos";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<main class="w-full h-full flex justify-center items-center">
-    <div class="bg-white w-full p-6 rounded-lg shadow-lg">
-        <h1 class="font-semibold text-2xl mb-4">LISTA DE CURSOS</h1>
-        <p class="mb-6">
-            <a asp-action="Create" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Criar Novo Curso</a>
-        </p>
+<main class="container py-4">
+    <!-- Título da Página -->
+    <div class="text-center mb-5">
+        <h1 class="h3 font-weight-bold text-dark">Gestão de Cursos</h1>
+        <p class="text-muted">Aqui você pode criar, editar e gerenciar os cursos disponíveis.</p>
+    </div>
 
-        <table class="min-w-full table-auto">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nome</th>
-                    <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr class="border-b">
-                        <td class="px-4 py-2 text-sm text-gray-700">
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td class="px-4 py-2 text-sm text-gray-700">
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="text-blue-600 hover:underline">Editar</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id" class="text-blue-600 hover:underline">Detalhes</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-red-600 hover:underline">Deletar</a>
-                        </td>
+    <!-- Botões de Ações -->
+    <div class="d-flex justify-content-between mb-4">
+        <!-- Botão Voltar -->
+        <a onclick="window.history.back()" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+
+        <!-- Botão para Novo Cadastro -->
+        <a asp-action="Create" class="btn btn-sm btn-success">
+            <i class="fas fa-plus"></i> Novo Curso
+        </a>
+    </div>
+   
+
+    <!-- Tabela de Cursos -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col" class="text-center" width="350px">Ações</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-2">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm me-2">
+                                    <i class="fas fa-info-circle"></i> Detalhes
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
+                                    <i class="fas fa-trash"></i> Deletar
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </main>
 
@@ -43,3 +65,6 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+
+

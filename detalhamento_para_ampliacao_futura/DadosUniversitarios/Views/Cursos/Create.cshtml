@@ -2,43 +2,44 @@
 
 @{
     ViewData["Title"] = "Cadastrar Curso";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<main class="flex items-center justify-center h-screen bg-gray-100">
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-        <form asp-action="Create" class="space-y-6">
-            <!-- TÍTULO -->
-            <div class="text-center">
-                <h1 class="font-semibold text-2xl text-gray-700">Cadastrar Curso</h1>
-                <p class="text-sm text-gray-500">Preencha os dados abaixo</p>
-            </div>
+<main class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <!-- Card para centralizar e estilizar -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h1 class="h4 mb-0">Cadastrar Curso</h1>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <!-- MENSAGEM DE VALIDAÇÃO -->
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-            <!-- MENSAGEM DE VALIDAÇÃO -->
-            <div asp-validation-summary="ModelOnly" class="text-red-600"></div>
+                        <!-- Campo oculto para Id -->
+                        <input asp-for="Id" type="hidden">
 
-            <!-- NOME DO CURSO -->
-            <div>
-                <label asp-for="Nome" class="block text-sm font-semibold text-gray-700">Nome do Curso</label>
-                <input asp-for="Nome" type="text" placeholder="Digite o nome do curso"
-                       class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" />
-                <span asp-validation-for="Nome" class="text-red-600 text-sm"></span>
-            </div>
+                        <!-- Nome do Curso -->
+                        <div class="mb-3">
+                            <label asp-for="Nome" class="form-label">Nome do Curso</label>
+                            <input asp-for="Nome" class="form-control" placeholder="Digite o nome do curso" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
 
-            <!-- BOTÃO DE SUBMISSÃO -->
-            <div>
-                <input type="submit" value="Cadastrar"
-                       class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200" />
+                        <!-- Botão de Submissão -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <button type="button" onclick="window.history.back()" class="btn btn-link text-decoration-none">
+                        Voltar para a página anterior
+                    </button>
+                </div>
             </div>
-
-            <!-- LINK PARA VOLTAR -->
-            <div class="text-center mt-4">
-                <button type="button" onclick="window.history.back()"
-                        class="text-blue-600 hover:underline text-sm">
-                    Voltar para a página anterior
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </main>
 

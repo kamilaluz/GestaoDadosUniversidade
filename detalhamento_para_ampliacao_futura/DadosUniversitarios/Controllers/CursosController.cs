@@ -56,13 +56,9 @@ namespace DadosUniversitarios.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome")] Curso curso)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(curso);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(curso);
+            _context.Add(curso);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));            
         }
 
         // GET: Curso/Edit/5
