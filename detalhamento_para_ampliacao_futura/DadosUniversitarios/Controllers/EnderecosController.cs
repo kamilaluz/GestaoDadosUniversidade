@@ -37,15 +37,14 @@ namespace DadosUniversitarios.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Cep,NomeRua,Numero,Bairro,Cidade,Estado")] Endereco endereco)
+        public async Task<IActionResult> Create([FromBody] Endereco endereco)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(endereco);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(endereco);
+            if (!ModelState.IsValid)
+                return BadRequest("Dados inválidos.");
+
+            _context.Enderecos.Add(endereco);
+            await _context.SaveChangesAsync();
+            return Json(endereco);
         }
 
         // GET: Enderecos/Edit/5
@@ -69,7 +68,7 @@ namespace DadosUniversitarios.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Cep,NomeRua,Numero,Bairro,Cidade,Estado")] Endereco endereco)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Cep,NomeRua,Bairro,Cidade,Estado")] Endereco endereco)
         {
             if (id != endereco.Id)
             {

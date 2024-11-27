@@ -8,6 +8,7 @@ namespace DadosUniversitarios.Models
         [Required]
         public int NumeroMatricula { get; set; }
         public List<Disciplina> Disciplinas { get; set; }
+        public List<Curso> Cursos { get; set; }
 
     }
 }

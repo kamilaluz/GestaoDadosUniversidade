@@ -9,7 +9,6 @@ namespace DadosUniversitarios.Models
         public string Cep { get; set; }
         [Required]
         public string NomeRua { get; set; } 
-        public int Numero { get; set; }
         [Required]
         public string Bairro { get; set; }
         [Required]

@@ -21,7 +21,7 @@ namespace DadosUniversitarios.Services
             modelBuilder.Entity<Aluno>().Property(p => p.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Professor>().Property(p => p.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Empresa>().Property(p => p.Id).UseIdentityAlwaysColumn();
-            modelBuilder.Entity<Fornecedor>().Property(p => p.Id).UseIdentityAlwaysColumn();
+            modelBuilder.Entity<Contrato>().Property(p => p.Id).UseIdentityAlwaysColumn();
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
@@ -31,8 +31,7 @@ namespace DadosUniversitarios.Services
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Professor> Professores { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
-        public DbSet<Fornecedor> Fornecedores { get; set; }        
-        public DbSet<PessoaFisica> PessoaFisica { get; set; } 
-        
+        public DbSet<Contrato> Fornecedores { get; set; }
+
     }
 }

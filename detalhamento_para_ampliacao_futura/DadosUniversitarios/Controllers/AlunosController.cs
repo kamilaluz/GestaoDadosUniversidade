@@ -22,6 +22,7 @@ namespace DadosUniversitarios.Controllers
         // GET: Alunos
         public async Task<IActionResult> Index()
         {
+
             return View(await _context.Alunos.ToListAsync());
         }
 
@@ -46,7 +47,12 @@ namespace DadosUniversitarios.Controllers
         // GET: Alunos/Create
         public IActionResult Create()
         {
-            return View();
+            var aluno = new Aluno
+            {
+                Endereco = new Endereco() // Inicializa a propriedade Endereco
+            };
+
+            return View(aluno);
         }
 
         // POST: Alunos/Create
@@ -54,16 +60,46 @@ namespace DadosUniversitarios.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumeroMatricula,Nome,CPF,DataNascimento,Email,Telefone")] Aluno aluno)
+        public async Task<IActionResult> Create(Aluno aluno, Endereco endereco)
         {
-            if (ModelState.IsValid)
+            // Busca pelo endereço com base na rua
+            var enderecoExistente = await _context.Enderecos
+                .FirstOrDefaultAsync(e => e.NomeRua == endereco.NomeRua);
+
+            if (enderecoExistente == null)
             {
-                _context.Add(aluno);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Caso o endereço não exista, cria um novo
+                Endereco novoEndereco = new Endereco
+                {
+                    Cep = endereco.Cep,
+                    NomeRua = endereco.NomeRua,
+                    Bairro = endereco.Bairro,
+                    Cidade = endereco.Cidade,
+                    Estado = endereco.Estado
+                };
+
+                // Adiciona o novo endereço ao banco de dados
+                _context.Enderecos.Add(novoEndereco);
+                await _context.SaveChangesAsync(); // Salva para gerar o ID do endereço
+
+                aluno.EnderecoId = novoEndereco.Id; // Atribui o ID do novo endereço ao aluno
+                
             }
-            return View(aluno);
+            else
+            {
+                // Se o endereço já existir, utiliza o ID encontrado
+                aluno.EnderecoId = enderecoExistente.Id;
+            }
+
+            // Adiciona o aluno com o EnderecoId correto
+            _context.Alunos.Add(aluno);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+
+
+
 
         // GET: Alunos/Edit/5
         public async Task<IActionResult> Edit(int? id)

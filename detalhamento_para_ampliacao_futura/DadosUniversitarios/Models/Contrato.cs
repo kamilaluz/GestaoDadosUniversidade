@@ -2,7 +2,7 @@
 
 namespace DadosUniversitarios.Models
 {
-    public class Fornecedor : Empresa
+    public class Contrato
     {
         public int Id { get; set; }
         [Required]

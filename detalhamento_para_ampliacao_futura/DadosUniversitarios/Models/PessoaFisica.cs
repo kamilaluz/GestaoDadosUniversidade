@@ -17,7 +17,11 @@ namespace DadosUniversitarios.Models
         public string Email { get; set; }
         [Required]
         public string Telefone { get; set; }
-        public Endereco Endereco { get; set; }
+
+        [Required(ErrorMessage = "Por favor, selecione um endereço.")]
+        public int EnderecoId { get; set; }
+        public Endereco Endereco { get; set; } = new Endereco();
+        public int Numero { get; set; }
 
 
     }

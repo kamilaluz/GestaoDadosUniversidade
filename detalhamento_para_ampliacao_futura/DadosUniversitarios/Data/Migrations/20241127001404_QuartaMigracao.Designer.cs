@@ -3,6 +3,7 @@ using System;
 using DadosUniversitarios.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DadosUniversitarios.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241127001404_QuartaMigracao")]
+    partial class QuartaMigracao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,39 +113,6 @@ namespace DadosUniversitarios.Data.Migrations
                     b.ToTable("Alunos");
                 });
 
-            modelBuilder.Entity("DadosUniversitarios.Models.Contrato", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
-
-                    b.Property<DateOnly>("DataPagamento")
-                        .HasColumnType("date");
-
-                    b.Property<int?>("EmpresaId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumeroContrato")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Periodicidade")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("ValorServico")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateOnly>("VencimentoContrato")
-                        .HasColumnType("date");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmpresaId");
-
-                    b.ToTable("Fornecedores");
-                });
-
             modelBuilder.Entity("DadosUniversitarios.Models.Curso", b =>
                 {
                     b.Property<int>("Id")
@@ -199,6 +169,11 @@ namespace DadosUniversitarios.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("character varying(13)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -223,6 +198,10 @@ namespace DadosUniversitarios.Data.Migrations
                     b.HasIndex("EnderecoId");
 
                     b.ToTable("Empresas");
+
+                    b.HasDiscriminator().HasValue("Empresa");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("DadosUniversitarios.Models.Endereco", b =>
@@ -526,6 +505,28 @@ namespace DadosUniversitarios.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DadosUniversitarios.Models.Fornecedor", b =>
+                {
+                    b.HasBaseType("DadosUniversitarios.Models.Empresa");
+
+                    b.Property<DateOnly>("DataPagamento")
+                        .HasColumnType("date");
+
+                    b.Property<int>("NumeroContrato")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Periodicidade")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("ValorServico")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateOnly>("VencimentoContrato")
+                        .HasColumnType("date");
+
+                    b.HasDiscriminator().HasValue("Fornecedor");
+                });
+
             modelBuilder.Entity("AlunoCurso", b =>
                 {
                     b.HasOne("DadosUniversitarios.Models.Aluno", null)
@@ -580,13 +581,6 @@ namespace DadosUniversitarios.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Endereco");
-                });
-
-            modelBuilder.Entity("DadosUniversitarios.Models.Contrato", b =>
-                {
-                    b.HasOne("DadosUniversitarios.Models.Empresa", null)
-                        .WithMany("Contratos")
-                        .HasForeignKey("EmpresaId");
                 });
 
             modelBuilder.Entity("DadosUniversitarios.Models.Disciplina", b =>
@@ -680,11 +674,6 @@ namespace DadosUniversitarios.Data.Migrations
             modelBuilder.Entity("DadosUniversitarios.Models.Curso", b =>
                 {
                     b.Navigation("Disciplinas");
-                });
-
-            modelBuilder.Entity("DadosUniversitarios.Models.Empresa", b =>
-                {
-                    b.Navigation("Contratos");
                 });
 #pragma warning restore 612, 618
         }

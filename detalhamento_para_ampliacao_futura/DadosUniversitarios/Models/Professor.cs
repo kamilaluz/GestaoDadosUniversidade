@@ -7,5 +7,6 @@ namespace DadosUniversitarios.Models
         public int Id { get; set; }
         [Required]
         public int NumeroMatricula { get; set; }
+        public List<Curso> Curso { get; set; }
     }
 }

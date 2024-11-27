@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Enderecos\**" />
+    <Content Remove="Views\Enderecos\**" />
+    <EmbeddedResource Remove="Views\Enderecos\**" />
+    <None Remove="Views\Enderecos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\EnderecosController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\css\.tailwind.css" />
   </ItemGroup>
 

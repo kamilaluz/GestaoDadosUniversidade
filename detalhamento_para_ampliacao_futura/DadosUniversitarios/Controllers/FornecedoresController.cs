@@ -54,7 +54,7 @@ namespace DadosUniversitarios.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumeroContrato,Periodicidade,ValorServico,DataPagamento,VencimentoContrato,Nome,CNPJ,Email,Telefone,NomeServico")] Fornecedor fornecedor)
+        public async Task<IActionResult> Create([Bind("Id,NumeroContrato,Periodicidade,ValorServico,DataPagamento,VencimentoContrato,Nome,CNPJ,Email,Telefone,NomeServico")] Contrato fornecedor)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace DadosUniversitarios.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroContrato,Periodicidade,ValorServico,DataPagamento,VencimentoContrato,Nome,CNPJ,Email,Telefone,NomeServico")] Fornecedor fornecedor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroContrato,Periodicidade,ValorServico,DataPagamento,VencimentoContrato,Nome,CNPJ,Email,Telefone,NomeServico")] Contrato fornecedor)
         {
             if (id != fornecedor.Id)
             {
