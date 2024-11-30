@@ -7,7 +7,8 @@
 <h2>Diagrama de caso de uso</h2>
 <p>No diagrama de caso de uso abaixo é possível observar a existência de cinco casos de uso, sendo eles: Cadastro de Pessoa Física, Cadastro de Pessoa Jurídica, Cadastro de Professores, Cadastro de Fornecedores e Cadastro de Alunos. Além disso, têm-se também quatro atores, sendo eles: Usuário, que é o ator principal pois interage com o sistema ativamente, Aluno, Professor e Fornecedor, que se relacionam com os casos de uso de forma passiva.</p>
 
-![image](https://github.com/user-attachments/assets/17a96416-d641-45fa-a40e-80cc1c5c74fd)
+![Captura de tela 2024-11-29 093657](https://github.com/user-attachments/assets/b2cab638-164e-4146-adc5-305ace045672)
+
 
 
 <h3>Descrição dos cenários de casos de uso</h3>
