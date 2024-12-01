@@ -1,7 +1,7 @@
-﻿@model IEnumerable<DadosUniversitarios.Models.Aluno>
+﻿@model IEnumerable<DadosUniversitarios.ViewModels.ContratosViewModel>
 
 @{
-    ViewData["Title"] = "Listagem de Alunos";
+    ViewData["Title"] = "Listagem de Fornecedores";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,8 +9,8 @@
 <main class="container py-4">
     <!-- Título da Página -->
     <div class="text-center mb-5">
-        <h1 class="h3 font-weight-bold text-dark">Gestão de Alunos</h1>
-        <p class="text-muted">Aqui você pode criar, editar e gerenciar os alunos disponíveis.</p>
+        <h1 class="h3 font-weight-bold text-dark">Gestão de Contratos</h1>
+        <p class="text-muted">Aqui você pode criar, editar e gerenciar os contratos disponíveis.</p>
     </div>
 
     <!-- Botões de Ações -->
@@ -22,7 +22,7 @@
 
         <!-- Botão para Novo Cadastro -->
         <a asp-action="Create" class="btn btn-sm btn-success">
-            <i class="fas fa-plus"></i> Novo Aluno
+            <i class="fas fa-plus"></i> Novo Fornecedor
         </a>
     </div>
 
@@ -33,12 +33,11 @@
             <table class="table table-striped table-hover align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th scope="col">Matrícula</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">CPF</th>
-                        <th scope="col">Data de Nascimento</th>
-                        <th scope="col">E-mail</th>
-                        <th scope="col">Telefone</th>
+                        <th scope="col">Serviço</th>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">Contrato</th>
+                        <th scope="col">Periodicidade</th>
+                        <th scope="col">Vencimento contrato</th>                        
                         <th scope="col" class="text-center" width="350px">Ações</th>
                     </tr>
                 </thead>
@@ -46,20 +45,19 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.NumeroMatricula)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CPF)</td>
-                            <td>@Html.DisplayFor(modelItem => item.DataNascimento)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Telefone)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Empresa.NomeServico)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Empresa.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Contrato.NumeroContrato)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Contrato.Periodicidade)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Contrato.VencimentoContrato)</td>                            
                             <td class="text-center">
-                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-2">
+                                <a asp-action="Edit" asp-route-id="@item.Contrato.Id" class="btn btn-outline-primary btn-sm me-2">
                                     <i class="fas fa-edit"></i> Editar
                                 </a>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm me-2">
+                                <a asp-action="Details" asp-route-id="@item.Contrato.Id" class="btn btn-outline-secondary btn-sm me-2">
                                     <i class="fas fa-info-circle"></i> Detalhes
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
+                                <a asp-action="Delete" asp-route-id="@item.Contrato.Id" class="btn btn-outline-danger btn-sm">
                                     <i class="fas fa-trash"></i> Deletar
                                 </a>
                             </td>
@@ -70,4 +68,3 @@
         </div>
     </div>
 </main>
-    

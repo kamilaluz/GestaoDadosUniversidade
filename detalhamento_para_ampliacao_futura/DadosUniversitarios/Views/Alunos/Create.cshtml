@@ -5,18 +5,19 @@
 
 }
 
-<main class="container py-5">
+<main class="container py-7">
     <div class="row justify-content-center">
-        <!-- Formulário de Cadastro de Aluno -->
-        <div class="col-md-8 col-lg-6">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <!-- Card para centralizar e estilizar -->
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white text-center">
-                    <h4 class="mb-0">Cadastrar Aluno</h4>
-                    <p class="mb-0">Preencha os dados abaixo</p>
+                    <h1 class="h4 mb-0">Cadastrar Aluno</h1>
                 </div>
                 <div class="card-body">
-                    <!-- Formulário Principal -->
-                    <form asp-action="Create" method="post" id="form-aluno">
+                    <form asp-action="Create">
+                        <!-- MENSAGEM DE VALIDAÇÃO -->
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
                         <!-- Campo oculto para Id -->
                         <input asp-for="Id" type="hidden">
 
@@ -100,7 +101,7 @@
                         <!-- Número -->
                         <div class="mb-3">
                             <label asp-for="Numero" class="form-label">Número</label>
-                            <input asp-for="Numero" id="numero" type="text" class="form-control" placeholder="Digite o número" >
+                            <input asp-for="Numero" id="numero" type="text" class="form-control" placeholder="Digite o número">
                         </div>
 
                         <!-- Botão de Enviar -->
@@ -108,11 +109,12 @@
                             <button type="submit" class="btn btn-primary">Cadastrar Aluno</button>
                         </div>
                     </form>
-                </div>
+                </div>                
             </div>
         </div>
     </div>
 </main>
+
 
 @section Scripts {
         <script>

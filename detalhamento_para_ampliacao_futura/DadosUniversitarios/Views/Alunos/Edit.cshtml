@@ -2,57 +2,152 @@
 
 @{
     ViewData["Title"] = "Editar Aluno";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<main class="w-full h-full flex justify-center items-center">
-    <div class="flex w-1/2 h-3/5">
-        <div class="bg-white w-full h-full p-6 rounded-lg shadow-lg">
-            <h1 class="font-semibold text-2xl mb-4">EDITAR ALUNO</h1>
-            <h3 class="text-lg mb-6 text-gray-700">Atualize as informações do aluno</h3>
+<main class="container py-7">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <!-- Card para centralizar e estilizar -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h1 class="h4 mb-0">Editar Aluno</h1>
+                </div>
+                <div class="card-body">                    
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="EnderecoId" />
 
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
-                <input type="hidden" asp-for="Id" />
+                        <!-- Número de Matrícula -->
+                        <div class="mb-3">
+                            <label asp-for="NumeroMatricula" class="form-label">Número de Matrícula</label>
+                            <input asp-for="NumeroMatricula" class="form-control" />
+                            <span asp-validation-for="NumeroMatricula" class="text-danger"></span>
+                        </div>
 
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Número de Matrícula</label>
-                    <input asp-for="NumeroMatricula" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
-                    <span asp-validation-for="NumeroMatricula" class="text-danger"></span>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Nome</label>
-                    <input asp-for="Nome" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
-                    <span asp-validation-for="Nome" class="text-danger"></span>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">CPF</label>
-                    <input asp-for="CPF" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
-                    <span asp-validation-for="CPF" class="text-danger"></span>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Data de Nascimento</label>
-                    <input asp-for="DataNascimento" type="date" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
-                    <span asp-validation-for="DataNascimento" class="text-danger"></span>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Email</label>
-                    <input asp-for="Email" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Telefone</label>
-                    <input asp-for="Telefone" class="form-control border-2 border-gray-300 p-2 rounded-lg" />
-                    <span asp-validation-for="Telefone" class="text-danger"></span>
-                </div>
+                        <!-- Nome -->
+                        <div class="mb-3">
+                            <label asp-for="Nome" class="form-label">Nome</label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
 
-                <div class="flex justify-between">
-                    <button type="submit" class="btn btn-primary bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
-                        Salvar
-                    </button>
-                    <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista</a>
+                        <!-- CPF -->
+                        <div class="mb-3">
+                            <label asp-for="CPF" class="form-label">CPF</label>
+                            <input asp-for="CPF" class="form-control" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+
+                        <!-- Data de Nascimento -->
+                        <div class="mb-3">
+                            <label asp-for="DataNascimento" class="form-label">Data de Nascimento</label>
+                            <input asp-for="DataNascimento" type="date" class="form-control" />
+                            <span asp-validation-for="DataNascimento" class="text-danger"></span>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <!-- Telefone -->
+                        <div class="mb-3">
+                            <label asp-for="Telefone" class="form-label">Telefone</label>
+                            <input asp-for="Telefone" class="form-control" />
+                            <span asp-validation-for="Telefone" class="text-danger"></span>
+                        </div>
+
+                        <!-- Dados de Endereço -->
+                        <div class="mb-3">
+                            <h5>Endereço</h5>
+                        </div>
+
+                        <!-- CEP -->
+                        <div class="mb-3">
+                            <label for="cep" class="form-label">CEP</label>
+                            <div class="input-group">
+                                <input id="cep" type="text" class="form-control" placeholder="Digite o CEP" pattern="\d{5}-\d{3}" title="Digite um CEP no formato 00000-000" name="endereco.Cep" value="@Model.Endereco.Cep">
+                                <button type="button" id="buscar-cep" class="btn btn-primary">Buscar</button>
+                            </div>
+                        </div>
+
+                        <!-- Logradouro -->
+                        <div class="mb-3">
+                            <label for="logradouro" class="form-label">Logradouro</label>
+                            <input id="logradouro" type="text" class="form-control" name="endereco.NomeRua" value="@Model.Endereco.NomeRua">
+                        </div>
+
+                        <!-- Bairro -->
+                        <div class="mb-3">
+                            <label for="bairro" class="form-label">Bairro</label>
+                            <input id="bairro" type="text" class="form-control" name="endereco.Bairro" value="@Model.Endereco.Bairro">
+                        </div>
+
+                        <!-- Cidade -->
+                        <div class="mb-3">
+                            <label for="cidade" class="form-label">Cidade</label>
+                            <input id="cidade" type="text" class="form-control" name="endereco.Cidade" value="@Model.Endereco.Cidade">
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <input id="estado" type="text" class="form-control" name="endereco.Estado" value="@Model.Endereco.Estado">
+                        </div>
+
+                        <!-- Número -->
+                        <div class="mb-3">
+                            <label asp-for="Numero" class="form-label">Número</label>
+                            <input asp-for="Numero" id="numero" type="text" class="form-control" placeholder="Digite o número">
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                            <a asp-action="Index" class="btn btn-link">
+                                <i class="fas fa-arrow-left"></i> Voltar para a lista
+                            </a>
+                        </div>
+                    </form>
+
                 </div>
-            </form>
+            </div>
+        
         </div>
     </div>
 </main>
+
+@section Scripts {
+    <script>
+        // Mesma lógica de busca por CEP usada no cadastro
+        document.getElementById('buscar-cep').addEventListener('click', async () => {
+            const cep = document.getElementById('cep').value;
+
+            if (!/^\d{5}-?\d{3}$/.test(cep)) {
+                alert('Por favor, digite um CEP válido no formato 00000-000.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://viacep.com.br/ws/${cep.replace('-', '')}/json/`);
+                if (!response.ok) throw new Error('Erro ao consultar o CEP.');
+
+                const data = await response.json();
+                if (data.erro) throw new Error('CEP não encontrado.');
+
+                document.getElementById('logradouro').value = data.logradouro || '';
+                document.getElementById('bairro').value = data.bairro || '';
+                document.getElementById('cidade').value = data.localidade || '';
+                document.getElementById('estado').value = data.uf || '';
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+    </script>
+}

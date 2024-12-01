@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DadosUniversitarios.Models;
 using DadosUniversitarios.Services;
+using DadosUniversitarios.ViewModels;
 
 namespace DadosUniversitarios.Controllers
 {
@@ -22,7 +23,16 @@ namespace DadosUniversitarios.Controllers
         // GET: Fornecedos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Fornecedores.ToListAsync());
+            var contratos = await _context.Fornecedores
+        .ToListAsync();
+
+            // Transformando os contratos em ContratosViewModel
+            var contratosViewModel = contratos.Select(c => new ContratosViewModel
+            {
+                Contrato = c,
+            }).ToList();
+
+            return View(contratosViewModel);
         }
 
         // GET: Fornecedos/Details/5

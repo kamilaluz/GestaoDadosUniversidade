@@ -56,8 +56,6 @@ namespace DadosUniversitarios.Controllers
         }
 
         // POST: Alunos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Aluno aluno, Endereco endereco)
@@ -108,8 +106,10 @@ namespace DadosUniversitarios.Controllers
             {
                 return NotFound();
             }
-
-            var aluno = await _context.Alunos.FindAsync(id);
+            
+            var aluno = await _context.Alunos
+                .Include(e => e.Endereco)
+                .FirstOrDefaultAsync(a => a.Id == id);
             if (aluno == null)
             {
                 return NotFound();
@@ -118,38 +118,18 @@ namespace DadosUniversitarios.Controllers
         }
 
         // POST: Alunos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroMatricula,Nome,CPF,DataNascimento,Email,Telefone")] Aluno aluno)
+        public async Task<IActionResult> Edit(int id, Aluno aluno)
         {
             if (id != aluno.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(aluno);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AlunoExists(aluno.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(aluno);
+            _context.Update(aluno);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Alunos/Delete/5
