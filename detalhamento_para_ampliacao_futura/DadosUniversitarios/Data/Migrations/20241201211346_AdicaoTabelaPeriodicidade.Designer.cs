@@ -3,6 +3,7 @@ using System;
 using DadosUniversitarios.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DadosUniversitarios.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241201211346_AdicaoTabelaPeriodicidade")]
+    partial class AdicaoTabelaPeriodicidade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +85,7 @@ namespace DadosUniversitarios.Data.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.ToTable("Contratos");
+                    b.ToTable("Fornecedores");
                 });
 
             modelBuilder.Entity("DadosUniversitarios.Models.Curso", b =>

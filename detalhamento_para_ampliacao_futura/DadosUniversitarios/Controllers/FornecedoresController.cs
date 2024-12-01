@@ -23,16 +23,16 @@ namespace DadosUniversitarios.Controllers
         // GET: Fornecedos
         public async Task<IActionResult> Index()
         {
-            var empresas = await _context.Empresas
-                .Include(e => e.Contratos)
-                .OrderBy(e => e.Nome)
+            var contratos = await _context.Contratos
+                .Include(e => e.Empresa)
+                .OrderBy(e => e.NumeroContrato)
                 .ToListAsync();
 
             // Transformando os contratos em ContratosViewModel
-            var contratosViewModel = empresas
-            .SelectMany(empresa => empresa.Contratos, (empresa, contrato) => new ContratosViewModel
+            var contratosViewModel = contratos
+            .Select(contrato => new ContratosViewModel
             {
-                Empresa = empresa,
+                Empresa = contrato.Empresa,
                 Contrato = contrato
             })
             .ToList();
@@ -48,7 +48,7 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            var fornecedor = await _context.Fornecedores
+            var fornecedor = await _context.Contratos
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (fornecedor == null)
             {
@@ -61,21 +61,21 @@ namespace DadosUniversitarios.Controllers
         // GET: Fornecedos/Create
         public IActionResult Create()
         {
+            ViewData["EmpresaId"] = new SelectList(_context.Empresas.Include(g => g.Endereco), "Id", "Nome");
+            ViewData["PeriodicidadeId"] = new SelectList(_context.Periodicidade, "Id", "Nome");
+            
             return View();
         }
 
         // POST: Fornecedos/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumeroContrato,Periodicidade,ValorServico,DataPagamento,VencimentoContrato,Nome,CNPJ,Email,Telefone,NomeServico")] Contrato fornecedor)
+        public async Task<IActionResult> Create(Contrato contrato)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(fornecedor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(fornecedor);
+
+            _context.Contratos.Add(contrato);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Fornecedos/Edit/5
@@ -86,7 +86,7 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            var fornecedor = await _context.Contratos.FindAsync(id);
             if (fornecedor == null)
             {
                 return NotFound();
@@ -133,10 +133,10 @@ namespace DadosUniversitarios.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            var fornecedor = await _context.Contratos.FindAsync(id);
             if (fornecedor != null)
             {
-                _context.Fornecedores.Remove(fornecedor);
+                _context.Contratos.Remove(fornecedor);
             }
 
             await _context.SaveChangesAsync();
@@ -145,7 +145,7 @@ namespace DadosUniversitarios.Controllers
 
         private bool FornecedorExists(int id)
         {
-            return _context.Fornecedores.Any(e => e.Id == id);
+            return _context.Contratos.Any(e => e.Id == id);
         }
     }
 }

@@ -24,6 +24,15 @@ namespace DadosUniversitarios.Services
                     new TipoPessoa { Id = 2, NomeTipo = "Professor" });
             modelBuilder.Entity<Empresa>().Property(p => p.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Contrato>().Property(p => p.Id).UseIdentityAlwaysColumn();
+            modelBuilder.Entity<Periodicidade>().HasData(
+                    new Periodicidade { Id = 1, Nome = "Diária" },
+                    new Periodicidade { Id = 2, Nome = "Semanal" },
+                    new Periodicidade { Id = 3, Nome = "Quinzenal" },
+                    new Periodicidade { Id = 4, Nome = "Mensal" },
+                    new Periodicidade { Id = 5, Nome = "Bimestral" },
+                    new Periodicidade { Id = 6, Nome = "Trimestral" },
+                    new Periodicidade { Id = 7, Nome = "Semestral" },
+                    new Periodicidade { Id = 8, Nome = "Anual" });
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
@@ -33,7 +42,8 @@ namespace DadosUniversitarios.Services
         public DbSet<Pessoa> Pessoas { get; set; }
         public DbSet<TipoPessoa> TiposPessoa { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
-        public DbSet<Contrato> Fornecedores { get; set; }
+        public DbSet<Contrato> Contratos { get; set; }
+        public DbSet<Periodicidade> Periodicidade { get; set; }
 
     }
 }

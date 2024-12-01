@@ -1,0 +1,77 @@
+﻿@model DadosUniversitarios.Models.Contrato
+
+@{
+    ViewData["Title"] = "Cadastrar Contrato";
+}
+
+<main class="container py-7">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <!-- Card para centralizar e estilizar -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h1 class="h4 mb-0">Cadastrar contrato</h1>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <!-- MENSAGEM DE VALIDAÇÃO -->
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Empresa -->
+                        <div class="mb-3">
+                            <label asp-for="EmpresaId" class="form-label">Empresa</label>
+                            <select asp-for="EmpresaId" class="form-control" asp-items="ViewBag.EmpresaId"></select>
+                        </div>
+
+                        <!-- Número contrato -->
+                        <div class="mb-3">
+                            <label asp-for="NumeroContrato" class="form-label">Contrato</label>
+                            <input asp-for="NumeroContrato" type="text" class="form-control" placeholder="Digite o número do contrato">
+                        </div>
+
+                        <!-- Periodicidade -->
+                        <div class="mb-3">
+                            <label asp-for="Periodicidade" class="form-label">Periodicidade</label>
+                            <select asp-for="Periodicidade" class="form-control" asp-items="ViewBag.PeriodicidadeId"></select>
+                        </div>
+
+                        <!-- Valor -->
+                        <div class="mb-3">
+                            <label asp-for="ValorServico" class="form-label">Valor do serviço</label>
+                            <input asp-for="ValorServico" type="number" step="0.01" min="0" class="form-control" placeholder="Digite o valor do serviço">
+                        </div>
+
+                        <!-- Data de pagamento -->
+                        <div class="mb-3">
+                            <label asp-for="DataPagamento" class="form-label">Data de pagamento</label>
+                            <input asp-for="DataPagamento" type="text" class="form-control" placeholder="Digite a data de pagamento">
+                        </div>
+
+                        <!-- Vencimento -->
+                        <div class="mb-3">
+                            <label asp-for="VencimentoContrato" class="form-label">Vencimento do contrato</label>
+                            <input asp-for="VencimentoContrato" type="date" class="form-control" placeholder="Digite o vencimento do contrato">
+                        </div>
+
+
+                        <!-- Botão de Enviar -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Cadastrar Contrato</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+@section Scripts {
+    <script>
+        document.getElementById('valor').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+            value = (value / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            e.target.value = value.replace('R$', '').trim(); // Remove "R$" para facilitar a entrada
+        });
+    </script>
+}
