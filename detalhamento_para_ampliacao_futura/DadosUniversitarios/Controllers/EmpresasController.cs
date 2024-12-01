@@ -46,24 +46,54 @@ namespace DadosUniversitarios.Controllers
         // GET: Empresa/Create
         public IActionResult Create()
         {
-            return View();
-        }
-
-        // POST: Empresa/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,CNPJ,Email,Telefone,NomeServico")] Empresa empresa)
-        {
-            if (ModelState.IsValid)
+            var empresa = new Empresa
             {
-                _context.Add(empresa);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+                Endereco = new Endereco() // Inicializa a propriedade Endereco
+            };
             return View(empresa);
         }
+
+        // POST: Empresa/Create        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Empresa empresa, Endereco endereco)
+        {
+            // Busca pelo endereço com base na rua
+            var enderecoExistente = await _context.Enderecos
+                .FirstOrDefaultAsync(e => e.NomeRua == endereco.NomeRua);
+
+            if (enderecoExistente == null)
+            {
+                // Caso o endereço não exista, cria um novo
+                Endereco novoEndereco = new Endereco
+                {
+                    Cep = endereco.Cep,
+                    NomeRua = endereco.NomeRua,
+                    Bairro = endereco.Bairro,
+                    Cidade = endereco.Cidade,
+                    Estado = endereco.Estado
+                };
+
+                // Adiciona o novo endereço ao banco de dados
+                _context.Enderecos.Add(novoEndereco);
+                await _context.SaveChangesAsync(); // Salva para gerar o ID do endereço
+
+                empresa.EnderecoId = novoEndereco.Id; // Atribui o ID do novo endereço ao aluno
+
+            }
+            else
+            {
+                // Se o endereço já existir, utiliza o ID encontrado
+                empresa.EnderecoId = enderecoExistente.Id;
+            }
+
+            // Adiciona o aluno com o EnderecoId correto
+            _context.Empresas.Add(empresa);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+    
 
         // GET: Empresa/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -73,7 +103,9 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            var empresa = await _context.Empresas.FindAsync(id);
+            var empresa = await _context.Empresas
+                .Include(e => e.Endereco)
+                .FirstOrDefaultAsync(a => a.Id == id);
             if (empresa == null)
             {
                 return NotFound();
@@ -81,39 +113,19 @@ namespace DadosUniversitarios.Controllers
             return View(empresa);
         }
 
-        // POST: Empresa/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Empresa/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,CNPJ,Email,Telefone,NomeServico")] Empresa empresa)
+        public async Task<IActionResult> Edit(int id, Empresa empresa)
         {
             if (id != empresa.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(empresa);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EmpresaExists(empresa.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(empresa);
+            _context.Update(empresa);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Empresa/Delete/5

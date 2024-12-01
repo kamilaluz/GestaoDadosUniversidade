@@ -15,7 +15,9 @@ namespace DadosUniversitarios.Models
         [Required]
         [Phone]
         public string Telefone { get; set; }
+        public int EnderecoId { get; set; }
         public Endereco Endereco { get; set; }
+        public int Numero { get; set; }
         public string NomeServico { get; set; }
         public List<Contrato> Contratos { get; set; }
 
