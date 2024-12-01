@@ -22,7 +22,7 @@ namespace DadosUniversitarios.Controllers
         // GET: Empresa
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Empresas.ToListAsync());
+            return View(await _context.Empresas.OrderBy(a => a.Nome).ToListAsync());
         }
 
         // GET: Empresa/Details/5

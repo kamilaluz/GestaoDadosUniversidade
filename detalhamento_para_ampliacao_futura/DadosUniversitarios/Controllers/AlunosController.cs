@@ -23,7 +23,7 @@ namespace DadosUniversitarios.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await _context.Alunos.ToListAsync());
+            return View(await _context.Alunos.OrderBy(a => a.NumeroMatricula).ToListAsync());
         }
 
         // GET: Alunos/Details/5

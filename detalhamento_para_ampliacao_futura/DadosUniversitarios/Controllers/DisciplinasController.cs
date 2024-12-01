@@ -22,7 +22,7 @@ namespace DadosUniversitarios.Controllers
         // GET: Disciplina
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Disciplinas.ToListAsync());
+            return View(await _context.Disciplinas.OrderBy(a => a.Nome).ToListAsync());
         }
 
         // GET: Disciplina/Details/5
@@ -49,9 +49,7 @@ namespace DadosUniversitarios.Controllers
             return View();
         }
 
-        // POST: Disciplina/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Disciplina/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome")] Disciplina disciplina)
@@ -78,8 +76,6 @@ namespace DadosUniversitarios.Controllers
         }
 
         // POST: Disciplina/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Disciplina disciplina)
@@ -89,27 +85,9 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(disciplina);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DisciplinaExists(disciplina.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(disciplina);
+            _context.Update(disciplina);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Disciplina/Delete/5

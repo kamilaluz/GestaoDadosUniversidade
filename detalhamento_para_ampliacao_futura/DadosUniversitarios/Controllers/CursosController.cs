@@ -22,7 +22,7 @@ namespace DadosUniversitarios.Controllers
         // GET: Curso
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cursos.ToListAsync());
+            return View(await _context.Cursos.OrderBy(d => d.Nome).ToListAsync());
         }
 
         // GET: Curso/Details/5
@@ -49,9 +49,7 @@ namespace DadosUniversitarios.Controllers
             return View();
         }
 
-        // POST: Curso/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Curso/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome")] Curso curso)
@@ -77,9 +75,7 @@ namespace DadosUniversitarios.Controllers
             return View(curso);
         }
 
-        // POST: Curso/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Curso/Edit/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Curso curso)
@@ -89,27 +85,9 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(curso);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CursoExists(curso.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(curso);
+            _context.Update(curso);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Curso/Delete/5

@@ -23,14 +23,19 @@ namespace DadosUniversitarios.Controllers
         // GET: Fornecedos
         public async Task<IActionResult> Index()
         {
-            var contratos = await _context.Fornecedores
-        .ToListAsync();
+            var empresas = await _context.Empresas
+                .Include(e => e.Contratos)
+                .OrderBy(e => e.Nome)
+                .ToListAsync();
 
             // Transformando os contratos em ContratosViewModel
-            var contratosViewModel = contratos.Select(c => new ContratosViewModel
+            var contratosViewModel = empresas
+            .SelectMany(empresa => empresa.Contratos, (empresa, contrato) => new ContratosViewModel
             {
-                Contrato = c,
-            }).ToList();
+                Empresa = empresa,
+                Contrato = contrato
+            })
+            .ToList();
 
             return View(contratosViewModel);
         }
