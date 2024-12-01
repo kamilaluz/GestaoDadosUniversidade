@@ -22,7 +22,9 @@ namespace DadosUniversitarios.Controllers
         // GET: Professores
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Professores.OrderBy(a => a.NumeroMatricula).ToListAsync());
+            return View(await _context.Pessoas
+                .Where(p => p.Tipo.NomeTipo == "Professor")
+                .OrderBy(a => a.NumeroMatricula).ToListAsync());
         }
 
         // GET: Professores/Details/5
@@ -33,7 +35,7 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            var professor = await _context.Professores
+            var professor = await _context.Pessoas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (professor == null)
             {
@@ -46,23 +48,53 @@ namespace DadosUniversitarios.Controllers
         // GET: Professores/Create
         public IActionResult Create()
         {
-            return View();
+            var professor = new Pessoa
+            {
+                Endereco = new Endereco(),
+                TipoId = 2
+            };
+            return View(professor);
         }
 
-        // POST: Professores/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Professores/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NumeroMatricula,Nome,CPF,DataNascimento,Email,Telefone")] Professor professor)
+        public async Task<IActionResult> Create(Pessoa professor, Endereco endereco)
         {
-            if (ModelState.IsValid)
+            // Busca pelo endereço com base na rua
+            var enderecoExistente = await _context.Enderecos
+                .FirstOrDefaultAsync(e => e.NomeRua == endereco.NomeRua);
+
+            if (enderecoExistente == null)
             {
-                _context.Add(professor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Caso o endereço não exista, cria um novo
+                Endereco novoEndereco = new Endereco
+                {
+                    Cep = endereco.Cep,
+                    NomeRua = endereco.NomeRua,
+                    Bairro = endereco.Bairro,
+                    Cidade = endereco.Cidade,
+                    Estado = endereco.Estado
+                };
+
+                // Adiciona o novo endereço ao banco de dados
+                _context.Enderecos.Add(novoEndereco);
+                await _context.SaveChangesAsync(); // Salva para gerar o ID do endereço
+
+                professor.EnderecoId = novoEndereco.Id; // Atribui o ID do novo endereço ao aluno
+
             }
-            return View(professor);
+            else
+            {
+                // Se o endereço já existir, utiliza o ID encontrado
+                professor.EnderecoId = enderecoExistente.Id;
+            }
+
+            // Adiciona o aluno com o EnderecoId correto
+            _context.Pessoas.Add(professor);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Professores/Edit/5
@@ -73,7 +105,9 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            var professor = await _context.Professores.FindAsync(id);
+            var professor = await _context.Pessoas
+                .Include(e => e.Endereco)
+                .FirstOrDefaultAsync(a => a.Id == id);
             if (professor == null)
             {
                 return NotFound();
@@ -81,68 +115,30 @@ namespace DadosUniversitarios.Controllers
             return View(professor);
         }
 
-        // POST: Professores/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Professores/Edit/5       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroMatricula,Nome,CPF,DataNascimento,Email,Telefone")] Professor professor)
+        public async Task<IActionResult> Edit(int id, Pessoa professor)
         {
             if (id != professor.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(professor);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProfessorExists(professor.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(professor);
+            _context.Update(professor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Professores/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var professor = await _context.Professores
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (professor == null)
-            {
-                return NotFound();
-            }
-
-            return View(professor);
-        }
 
         // POST: Professores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var professor = await _context.Professores.FindAsync(id);
+            var professor = await _context.Pessoas.FindAsync(id);
             if (professor != null)
             {
-                _context.Professores.Remove(professor);
+                _context.Pessoas.Remove(professor);
             }
 
             await _context.SaveChangesAsync();
@@ -151,7 +147,7 @@ namespace DadosUniversitarios.Controllers
 
         private bool ProfessorExists(int id)
         {
-            return _context.Professores.Any(e => e.Id == id);
+            return _context.Pessoas.Any(e => e.Id == id);
         }
     }
 }

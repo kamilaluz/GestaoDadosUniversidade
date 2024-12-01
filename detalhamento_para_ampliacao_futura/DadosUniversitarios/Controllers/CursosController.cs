@@ -90,36 +90,17 @@ namespace DadosUniversitarios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Curso/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var curso = await _context.Cursos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (curso == null)
-            {
-                return NotFound();
-            }
-
-            return View(curso);
-        }
-
-        // POST: Curso/Delete/5
-        [HttpPost, ActionName("Delete")]
+        
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var curso = await _context.Cursos.FindAsync(id);
             if (curso != null)
             {
                 _context.Cursos.Remove(curso);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

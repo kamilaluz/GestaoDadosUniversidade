@@ -2,9 +2,11 @@
 
 namespace DadosUniversitarios.Models
 {
-    public class PessoaFisica
+    public class Pessoa
     {
         public int Id { get; set; }
+        public int TipoId { get; set; }
+        public TipoPessoa Tipo { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
@@ -22,6 +24,9 @@ namespace DadosUniversitarios.Models
         public int EnderecoId { get; set; }
         public Endereco Endereco { get; set; } = new Endereco();
         public int Numero { get; set; }
+        public int NumeroMatricula { get; set; }
+        public List<Curso> Curso { get; set; }
+        public List<Disciplina> Disciplina { get; set; }
 
 
     }

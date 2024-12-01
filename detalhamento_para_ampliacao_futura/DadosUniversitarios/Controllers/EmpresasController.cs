@@ -128,24 +128,7 @@ namespace DadosUniversitarios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Empresa/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var empresa = await _context.Empresas
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (empresa == null)
-            {
-                return NotFound();
-            }
-
-            return View(empresa);
-        }
-
+        
         // POST: Empresa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -18,8 +18,10 @@ namespace DadosUniversitarios.Services
             modelBuilder.Entity<Curso>().Property(p => p.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Disciplina>().Property(p => p.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Endereco>().Property(p => p.Id).UseIdentityAlwaysColumn();
-            modelBuilder.Entity<Aluno>().Property(p => p.Id).UseIdentityAlwaysColumn();
-            modelBuilder.Entity<Professor>().Property(p => p.Id).UseIdentityAlwaysColumn();
+            modelBuilder.Entity<Pessoa>().Property(p => p.Id).UseIdentityAlwaysColumn();
+            modelBuilder.Entity<TipoPessoa>().HasData(
+                    new TipoPessoa { Id = 1, NomeTipo = "Aluno" },
+                    new TipoPessoa { Id = 2, NomeTipo = "Professor" });
             modelBuilder.Entity<Empresa>().Property(p => p.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Contrato>().Property(p => p.Id).UseIdentityAlwaysColumn();
         }
@@ -28,8 +30,8 @@ namespace DadosUniversitarios.Services
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Disciplina> Disciplinas { get; set; }        
         public DbSet<Endereco> Enderecos { get; set; }
-        public DbSet<Aluno> Alunos { get; set; }
-        public DbSet<Professor> Professores { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<TipoPessoa> TiposPessoa { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<Contrato> Fornecedores { get; set; }
 

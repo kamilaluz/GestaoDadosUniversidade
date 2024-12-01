@@ -23,7 +23,9 @@ namespace DadosUniversitarios.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(await _context.Alunos.OrderBy(a => a.NumeroMatricula).ToListAsync());
+            return View(await _context.Pessoas
+                .Where(p => p.Tipo.NomeTipo == "Aluno")
+                .OrderBy(a => a.NumeroMatricula).ToListAsync());
         }
 
         // GET: Alunos/Details/5
@@ -34,7 +36,7 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            var aluno = await _context.Alunos
+            var aluno = await _context.Pessoas.Where(p => p.Tipo.NomeTipo == "Aluno")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (aluno == null)
             {
@@ -47,9 +49,10 @@ namespace DadosUniversitarios.Controllers
         // GET: Alunos/Create
         public IActionResult Create()
         {
-            var aluno = new Aluno
+            var aluno = new Pessoa
             {
-                Endereco = new Endereco() // Inicializa a propriedade Endereco
+                Endereco = new Endereco(),
+                TipoId = 1
             };
 
             return View(aluno);
@@ -58,7 +61,7 @@ namespace DadosUniversitarios.Controllers
         // POST: Alunos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Aluno aluno, Endereco endereco)
+        public async Task<IActionResult> Create(Pessoa aluno, Endereco endereco)
         {
             // Busca pelo endereço com base na rua
             var enderecoExistente = await _context.Enderecos
@@ -90,7 +93,7 @@ namespace DadosUniversitarios.Controllers
             }
 
             // Adiciona o aluno com o EnderecoId correto
-            _context.Alunos.Add(aluno);
+            _context.Pessoas.Add(aluno);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
@@ -107,7 +110,7 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
             
-            var aluno = await _context.Alunos
+            var aluno = await _context.Pessoas
                 .Include(e => e.Endereco)
                 .FirstOrDefaultAsync(a => a.Id == id);
             if (aluno == null)
@@ -120,7 +123,7 @@ namespace DadosUniversitarios.Controllers
         // POST: Alunos/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Aluno aluno)
+        public async Task<IActionResult> Edit(int id, Pessoa aluno)
         {
             if (id != aluno.Id)
             {
@@ -131,34 +134,16 @@ namespace DadosUniversitarios.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        // GET: Alunos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var aluno = await _context.Alunos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (aluno == null)
-            {
-                return NotFound();
-            }
-
-            return View(aluno);
-        }
-
+                
         // POST: Alunos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var aluno = await _context.Alunos.FindAsync(id);
+            var aluno = await _context.Pessoas.FindAsync(id);
             if (aluno != null)
             {
-                _context.Alunos.Remove(aluno);
+                _context.Pessoas.Remove(aluno);
             }
 
             await _context.SaveChangesAsync();
@@ -167,7 +152,7 @@ namespace DadosUniversitarios.Controllers
 
         private bool AlunoExists(int id)
         {
-            return _context.Alunos.Any(e => e.Id == id);
+            return _context.Pessoas.Any(e => e.Id == id);
         }
     }
 }

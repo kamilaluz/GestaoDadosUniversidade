@@ -90,23 +90,6 @@ namespace DadosUniversitarios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Disciplina/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var disciplina = await _context.Disciplinas
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (disciplina == null)
-            {
-                return NotFound();
-            }
-
-            return View(disciplina);
-        }
 
         // POST: Disciplina/Delete/5
         [HttpPost, ActionName("Delete")]

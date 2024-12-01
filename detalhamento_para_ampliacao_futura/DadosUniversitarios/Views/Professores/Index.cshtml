@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DadosUniversitarios.Models.Professor>
+﻿@model IEnumerable<DadosUniversitarios.Models.Pessoa>
 
 @{
     ViewData["Title"] = "Index";
@@ -58,9 +58,13 @@
                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm me-2">
                                     <i class="fas fa-info-circle"></i> Detalhes
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
-                                    <i class="fas fa-trash"></i> Deletar
-                                </a>
+                                <!-- Formulário para exclusão -->
+                                <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;"
+                                      onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Deletar
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     }

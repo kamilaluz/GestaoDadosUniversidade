@@ -1,4 +1,4 @@
-﻿@model DadosUniversitarios.Models.Aluno
+﻿@model DadosUniversitarios.Models.Pessoa
 
 @{
     ViewData["Title"] = "Editar Aluno";
@@ -17,6 +17,7 @@
                     <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
                         <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="TipoId" />
                         <input type="hidden" asp-for="EnderecoId" />
 
                         <!-- Número de Matrícula -->

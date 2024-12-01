@@ -1,4 +1,4 @@
-﻿@model DadosUniversitarios.Models.Aluno
+﻿@model DadosUniversitarios.Models.Pessoa
 
 @{
     ViewData["Title"] = "Cadastrar Aluno";
@@ -19,7 +19,10 @@
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
                         <!-- Campo oculto para Id -->
-                        <input asp-for="Id" type="hidden">
+                        <input asp-for="Id" type="hidden">                        
+
+                        <!-- Campo oculto para Tipo -->
+                        <input asp-for="TipoId" type="hidden" value="1">
 
                         <!-- Número de Matrícula -->
                         <div class="mb-3">

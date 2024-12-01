@@ -64,9 +64,7 @@ namespace DadosUniversitarios.Controllers
             return View();
         }
 
-        // POST: Fornecedos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Fornecedos/Create        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NumeroContrato,Periodicidade,ValorServico,DataPagamento,VencimentoContrato,Nome,CNPJ,Email,Telefone,NomeServico")] Contrato fornecedor)
@@ -97,8 +95,6 @@ namespace DadosUniversitarios.Controllers
         }
 
         // POST: Fornecedos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroContrato,Periodicidade,ValorServico,DataPagamento,VencimentoContrato,Nome,CNPJ,Email,Telefone,NomeServico")] Contrato fornecedor)
@@ -131,24 +127,7 @@ namespace DadosUniversitarios.Controllers
             return View(fornecedor);
         }
 
-        // GET: Fornecedos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var fornecedor = await _context.Fornecedores
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (fornecedor == null)
-            {
-                return NotFound();
-            }
-
-            return View(fornecedor);
-        }
-
+        
         // POST: Fornecedos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
