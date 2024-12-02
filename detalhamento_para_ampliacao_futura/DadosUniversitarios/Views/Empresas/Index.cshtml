@@ -35,7 +35,7 @@
                         <th scope="col">CNPJ</th>
                         <th scope="col">E-mail</th>
                         <th scope="col">Telefone</th>
-                        <th scope="col">Serviço</th>
+                        <th scope="col">Serviço principal</th>
                         <th scope="col" class="text-center" width="350px">Ações</th>
                     </tr>
                 </thead>
@@ -47,7 +47,7 @@
                             <td>@Html.DisplayFor(modelItem => item.CNPJ)</td>
                             <td>@Html.DisplayFor(modelItem => item.Email)</td>
                             <td>@Html.DisplayFor(modelItem => item.Telefone)</td>
-                            <td>@Html.DisplayFor(modelItem => item.NomeServico)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NomeServico.Nome)</td>
                             <td class="text-center">
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-2">
                                     <i class="fas fa-edit"></i> Editar

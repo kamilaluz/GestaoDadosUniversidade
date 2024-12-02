@@ -24,8 +24,10 @@ namespace DadosUniversitarios.Controllers
         public async Task<IActionResult> Index()
         {
             var contratos = await _context.Contratos
-                .Include(e => e.Empresa)
-                .OrderBy(e => e.NumeroContrato)
+                .Include(c => c.Servico)
+                .Include(c => c.Empresa)
+                .Include(c => c.Periodicidade)
+                .OrderBy(c => c.NumeroContrato)
                 .ToListAsync();
 
             // Transformando os contratos em ContratosViewModel
@@ -63,7 +65,9 @@ namespace DadosUniversitarios.Controllers
         {
             ViewData["EmpresaId"] = new SelectList(_context.Empresas.Include(g => g.Endereco), "Id", "Nome");
             ViewData["PeriodicidadeId"] = new SelectList(_context.Periodicidade, "Id", "Nome");
-            
+            ViewData["ServicoId"] = new SelectList(_context.Servicos, "Id", "Nome");
+
+
             return View();
         }
 

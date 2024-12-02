@@ -3,20 +3,17 @@ using System;
 using DadosUniversitarios.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DadosUniversitarios.Data.Migrations
+namespace DadosUniversitarios.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241127000941_TerceiraMigracao")]
-    partial class TerceiraMigracao
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,37 +22,37 @@ namespace DadosUniversitarios.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AlunoCurso", b =>
+            modelBuilder.Entity("CursoDisciplina", b =>
                 {
-                    b.Property<int>("AlunosId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("CursosId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AlunosId", "CursosId");
-
-                    b.HasIndex("CursosId");
-
-                    b.ToTable("AlunoCurso");
-                });
-
-            modelBuilder.Entity("AlunoDisciplina", b =>
-                {
-                    b.Property<int>("AlunosId")
                         .HasColumnType("integer");
 
                     b.Property<int>("DisciplinasId")
                         .HasColumnType("integer");
 
-                    b.HasKey("AlunosId", "DisciplinasId");
+                    b.HasKey("CursosId", "DisciplinasId");
 
                     b.HasIndex("DisciplinasId");
 
-                    b.ToTable("AlunoDisciplina");
+                    b.ToTable("CursoDisciplina");
                 });
 
-            modelBuilder.Entity("DadosUniversitarios.Models.Aluno", b =>
+            modelBuilder.Entity("CursoPessoa", b =>
+                {
+                    b.Property<int>("CursoId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PessoasId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CursoId", "PessoasId");
+
+                    b.HasIndex("PessoasId");
+
+                    b.ToTable("CursoPessoa");
+                });
+
+            modelBuilder.Entity("DadosUniversitarios.Models.Contrato", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,39 +60,36 @@ namespace DadosUniversitarios.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("DataNascimento")
+                    b.Property<DateOnly>("DataPagamento")
                         .HasColumnType("date");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("EnderecoId")
+                    b.Property<int>("EmpresaId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Numero")
+                    b.Property<int>("NumeroContrato")
                         .HasColumnType("integer");
 
-                    b.Property<int>("NumeroMatricula")
+                    b.Property<int>("PeriodicidadeId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("ServicoId")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("ValorServico")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateOnly>("VencimentoContrato")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EnderecoId");
+                    b.HasIndex("EmpresaId");
 
-                    b.ToTable("Alunos");
+                    b.HasIndex("PeriodicidadeId");
+
+                    b.HasIndex("ServicoId");
+
+                    b.ToTable("Contratos");
                 });
 
             modelBuilder.Entity("DadosUniversitarios.Models.Curso", b =>
@@ -123,21 +117,11 @@ namespace DadosUniversitarios.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CursoId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ProfessorId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CursoId");
-
-                    b.HasIndex("ProfessorId");
 
                     b.ToTable("Disciplinas");
                 });
@@ -154,11 +138,6 @@ namespace DadosUniversitarios.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("character varying(13)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -170,9 +149,11 @@ namespace DadosUniversitarios.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("NomeServico")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("NomeServicoId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
@@ -182,11 +163,9 @@ namespace DadosUniversitarios.Data.Migrations
 
                     b.HasIndex("EnderecoId");
 
+                    b.HasIndex("NomeServicoId");
+
                     b.ToTable("Empresas");
-
-                    b.HasDiscriminator().HasValue("Empresa");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("DadosUniversitarios.Models.Endereco", b =>
@@ -222,7 +201,66 @@ namespace DadosUniversitarios.Data.Migrations
                     b.ToTable("Enderecos");
                 });
 
-            modelBuilder.Entity("DadosUniversitarios.Models.Professor", b =>
+            modelBuilder.Entity("DadosUniversitarios.Models.Periodicidade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Periodicidade");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "Diária"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "Semanal"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Quinzenal"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nome = "Mensal"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nome = "Bimestral"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nome = "Trimestral"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Nome = "Semestral"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Nome = "Anual"
+                        });
+                });
+
+            modelBuilder.Entity("DadosUniversitarios.Models.Pessoa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -233,9 +271,6 @@ namespace DadosUniversitarios.Data.Migrations
                     b.Property<string>("CPF")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int?>("CursoId")
-                        .HasColumnType("integer");
 
                     b.Property<DateOnly>("DataNascimento")
                         .HasColumnType("date");
@@ -261,13 +296,104 @@ namespace DadosUniversitarios.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.Property<int>("TipoId")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("CursoId");
+                    b.HasKey("Id");
 
                     b.HasIndex("EnderecoId");
 
-                    b.ToTable("Professores");
+                    b.HasIndex("TipoId");
+
+                    b.ToTable("Pessoas");
+                });
+
+            modelBuilder.Entity("DadosUniversitarios.Models.Servico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servicos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "Limpeza"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "Alimentação"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Mão de obra"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nome = "Coleta de resíduos"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nome = "Manutenção predial"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nome = "Manutenção de equipamentos"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Nome = "Gestão de recursos humanos"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Nome = "Marketing"
+                        });
+                });
+
+            modelBuilder.Entity("DadosUniversitarios.Models.TipoPessoa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("NomeTipo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TiposPessoa");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NomeTipo = "Aluno"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NomeTipo = "Professor"
+                        });
                 });
 
             modelBuilder.Entity("DadosUniversitarios.Models.Usuario", b =>
@@ -297,6 +423,21 @@ namespace DadosUniversitarios.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("DisciplinaPessoa", b =>
+                {
+                    b.Property<int>("DisciplinaId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PessoasId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("DisciplinaId", "PessoasId");
+
+                    b.HasIndex("PessoasId");
+
+                    b.ToTable("DisciplinaPessoa");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -495,48 +636,11 @@ namespace DadosUniversitarios.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DadosUniversitarios.Models.Fornecedor", b =>
+            modelBuilder.Entity("CursoDisciplina", b =>
                 {
-                    b.HasBaseType("DadosUniversitarios.Models.Empresa");
-
-                    b.Property<DateOnly>("DataPagamento")
-                        .HasColumnType("date");
-
-                    b.Property<int>("NumeroContrato")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Periodicidade")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("ValorServico")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateOnly>("VencimentoContrato")
-                        .HasColumnType("date");
-
-                    b.HasDiscriminator().HasValue("Fornecedor");
-                });
-
-            modelBuilder.Entity("AlunoCurso", b =>
-                {
-                    b.HasOne("DadosUniversitarios.Models.Aluno", null)
-                        .WithMany()
-                        .HasForeignKey("AlunosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DadosUniversitarios.Models.Curso", null)
                         .WithMany()
                         .HasForeignKey("CursosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AlunoDisciplina", b =>
-                {
-                    b.HasOne("DadosUniversitarios.Models.Aluno", null)
-                        .WithMany()
-                        .HasForeignKey("AlunosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -547,30 +651,46 @@ namespace DadosUniversitarios.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DadosUniversitarios.Models.Aluno", b =>
-                {
-                    b.HasOne("DadosUniversitarios.Models.Endereco", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Endereco");
-                });
-
-            modelBuilder.Entity("DadosUniversitarios.Models.Disciplina", b =>
+            modelBuilder.Entity("CursoPessoa", b =>
                 {
                     b.HasOne("DadosUniversitarios.Models.Curso", null)
-                        .WithMany("Disciplinas")
-                        .HasForeignKey("CursoId");
-
-                    b.HasOne("DadosUniversitarios.Models.Professor", "Professor")
                         .WithMany()
-                        .HasForeignKey("ProfessorId")
+                        .HasForeignKey("CursoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Professor");
+                    b.HasOne("DadosUniversitarios.Models.Pessoa", null)
+                        .WithMany()
+                        .HasForeignKey("PessoasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DadosUniversitarios.Models.Contrato", b =>
+                {
+                    b.HasOne("DadosUniversitarios.Models.Empresa", "Empresa")
+                        .WithMany("Contratos")
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DadosUniversitarios.Models.Periodicidade", "Periodicidade")
+                        .WithMany()
+                        .HasForeignKey("PeriodicidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DadosUniversitarios.Models.Servico", "Servico")
+                        .WithMany("Contratos")
+                        .HasForeignKey("ServicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+
+                    b.Navigation("Periodicidade");
+
+                    b.Navigation("Servico");
                 });
 
             modelBuilder.Entity("DadosUniversitarios.Models.Empresa", b =>
@@ -581,22 +701,49 @@ namespace DadosUniversitarios.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DadosUniversitarios.Models.Servico", "NomeServico")
+                        .WithMany("Empresas")
+                        .HasForeignKey("NomeServicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Endereco");
+
+                    b.Navigation("NomeServico");
                 });
 
-            modelBuilder.Entity("DadosUniversitarios.Models.Professor", b =>
+            modelBuilder.Entity("DadosUniversitarios.Models.Pessoa", b =>
                 {
-                    b.HasOne("DadosUniversitarios.Models.Curso", null)
-                        .WithMany("Professores")
-                        .HasForeignKey("CursoId");
-
                     b.HasOne("DadosUniversitarios.Models.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DadosUniversitarios.Models.TipoPessoa", "Tipo")
+                        .WithMany()
+                        .HasForeignKey("TipoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Endereco");
+
+                    b.Navigation("Tipo");
+                });
+
+            modelBuilder.Entity("DisciplinaPessoa", b =>
+                {
+                    b.HasOne("DadosUniversitarios.Models.Disciplina", null)
+                        .WithMany()
+                        .HasForeignKey("DisciplinaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DadosUniversitarios.Models.Pessoa", null)
+                        .WithMany()
+                        .HasForeignKey("PessoasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -650,11 +797,16 @@ namespace DadosUniversitarios.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DadosUniversitarios.Models.Curso", b =>
+            modelBuilder.Entity("DadosUniversitarios.Models.Empresa", b =>
                 {
-                    b.Navigation("Disciplinas");
+                    b.Navigation("Contratos");
+                });
 
-                    b.Navigation("Professores");
+            modelBuilder.Entity("DadosUniversitarios.Models.Servico", b =>
+                {
+                    b.Navigation("Contratos");
+
+                    b.Navigation("Empresas");
                 });
 #pragma warning restore 612, 618
         }

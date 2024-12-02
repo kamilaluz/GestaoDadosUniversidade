@@ -18,7 +18,8 @@ namespace DadosUniversitarios.Models
         public int EnderecoId { get; set; }
         public Endereco Endereco { get; set; }
         public int Numero { get; set; }
-        public string NomeServico { get; set; }
+        public int NomeServicoId { get; set; }
+        public Servico NomeServico { get; set; }
         public List<Contrato> Contratos { get; set; }
 
 

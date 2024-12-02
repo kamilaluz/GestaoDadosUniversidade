@@ -45,10 +45,10 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => item.Empresa.NomeServico)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Contrato.Servico.Nome)</td>
                             <td>@Html.DisplayFor(modelItem => item.Empresa.Nome)</td>
                             <td>@Html.DisplayFor(modelItem => item.Contrato.NumeroContrato)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Contrato.Periodicidade)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Contrato.Periodicidade.Nome)</td>
                             <td>@Html.DisplayFor(modelItem => item.Contrato.VencimentoContrato)</td>                            
                             <td class="text-center">
                                 <a asp-action="Edit" asp-route-id="@item.Contrato.Id" class="btn btn-outline-primary btn-sm me-2">

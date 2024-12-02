@@ -33,6 +33,15 @@ namespace DadosUniversitarios.Services
                     new Periodicidade { Id = 6, Nome = "Trimestral" },
                     new Periodicidade { Id = 7, Nome = "Semestral" },
                     new Periodicidade { Id = 8, Nome = "Anual" });
+            modelBuilder.Entity<Servico>().HasData(
+                    new Servico { Id = 1, Nome = "Limpeza" },
+                    new Servico { Id = 2, Nome = "Alimentação" },
+                    new Servico { Id = 3, Nome = "Mão de obra" },
+                    new Servico { Id = 4, Nome = "Coleta de resíduos" },
+                    new Servico { Id = 5, Nome = "Manutenção predial" },
+                    new Servico { Id = 6, Nome = "Manutenção de equipamentos" },
+                    new Servico { Id = 7, Nome = "Gestão de recursos humanos" },
+                    new Servico { Id = 8, Nome = "Marketing" });
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
@@ -44,6 +53,7 @@ namespace DadosUniversitarios.Services
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<Contrato> Contratos { get; set; }
         public DbSet<Periodicidade> Periodicidade { get; set; }
+        public DbSet<Servico> Servicos { get; set; }
 
     }
 }

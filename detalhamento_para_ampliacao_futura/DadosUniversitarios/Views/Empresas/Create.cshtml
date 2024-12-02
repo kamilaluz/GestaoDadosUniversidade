@@ -44,10 +44,10 @@
                             <input asp-for="Telefone" type="text" class="form-control" placeholder="Digite o telefone">
                         </div>
 
-                        <!-- Serviço -->
+                        <!-- Servico -->
                         <div class="mb-3">
-                            <label asp-for="NomeServico" class="form-label">Servico</label>
-                            <input asp-for="NomeServico" type="text" class="form-control" placeholder="Digite o nome do serviço">
+                            <label asp-for="NomeServicoId" class="form-label">Serviço</label>
+                            <select asp-for="NomeServicoId" class="form-control" asp-items="ViewBag.NomeServicoId"></select>
                         </div>
 
                         <!-- Dados de Endereço -->

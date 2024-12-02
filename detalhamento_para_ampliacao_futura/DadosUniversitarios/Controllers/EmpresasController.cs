@@ -22,7 +22,7 @@ namespace DadosUniversitarios.Controllers
         // GET: Empresa
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Empresas.OrderBy(a => a.Nome).ToListAsync());
+            return View(await _context.Empresas.Include(s => s.NomeServico).OrderBy(a => a.Nome).ToListAsync());
         }
 
         // GET: Empresa/Details/5
@@ -46,6 +46,7 @@ namespace DadosUniversitarios.Controllers
         // GET: Empresa/Create
         public IActionResult Create()
         {
+            ViewData["NomeServicoId"] = new SelectList(_context.Servicos, "Id", "Nome");
             var empresa = new Empresa
             {
                 Endereco = new Endereco() // Inicializa a propriedade Endereco
@@ -98,6 +99,7 @@ namespace DadosUniversitarios.Controllers
         // GET: Empresa/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["NomeServicoId"] = new SelectList(_context.Servicos, "Id", "Nome");
             if (id == null)
             {
                 return NotFound();

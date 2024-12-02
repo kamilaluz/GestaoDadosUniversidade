@@ -47,11 +47,10 @@
                             <span asp-validation-for="Telefone" class="text-danger"></span>
                         </div>
 
-                        <!-- Serviço -->
+                        <!-- Servico -->
                         <div class="mb-3">
-                            <label asp-for="NomeServico" class="form-label">Serviço</label>
-                            <input asp-for="NomeServico" class="form-control" />
-                            <span asp-validation-for="NomeServico" class="text-danger"></span>
+                            <label asp-for="NomeServicoId" class="form-label">Serviço</label>
+                            <select asp-for="NomeServicoId" class="form-control" asp-items="ViewBag.NomeServicoId"></select>
                         </div>
 
                         <!-- Dados de Endereço -->
