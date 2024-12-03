@@ -1,0 +1,17 @@
+﻿@model DadosUniversitarios.Models.Curso
+
+@{
+    ViewData["Title"] = "Adicionar Disciplina";
+}
+
+<h2>Adicionar Disciplina ao Curso</h2>
+
+<form asp-action="AddDisciplina" method="post">
+    <input type="hidden" name="cursoId" value="@ViewBag.CursoId" />
+    <div class="form-group">
+        <label for="disciplinaId">Disciplina</label>
+        <select id="disciplinaId" name="disciplinaId" class="form-control" asp-items="ViewBag.DisciplinaId"></select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Adicionar</button>
+    <a asp-action="Details" asp-route-id="@ViewBag.CursoId" class="btn btn-secondary mt-3">Cancelar</a>
+</form>

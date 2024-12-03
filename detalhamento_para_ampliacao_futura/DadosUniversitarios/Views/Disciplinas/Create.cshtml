@@ -25,16 +25,17 @@
                             <input asp-for="Nome" class="form-control" placeholder="Digite o nome da disciplina" />
                             <span asp-validation-for="Nome" class="text-danger"></span>
                         </div>
-                        <!-- Botão de Enviar -->
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                            <a asp-action="Index" class="btn btn-link">
+                                <i class="fas fa-arrow-left"></i> Voltar para a lista
+                            </a>
                         </div>
                     </form>
-                </div>
-                <div class="card-footer text-center">
-                    <button type="button" onclick="window.history.back()" class="btn btn-link text-decoration-none">
-                        Voltar para a página anterior
-                    </button>
                 </div>
             </div>
         </div>

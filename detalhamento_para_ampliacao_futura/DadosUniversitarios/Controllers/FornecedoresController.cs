@@ -85,6 +85,10 @@ namespace DadosUniversitarios.Controllers
         // GET: Fornecedos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["EmpresaId"] = new SelectList(_context.Empresas, "Id", "Nome");
+            ViewData["ServicoId"] = new SelectList(_context.Servicos, "Id", "Nome");
+            ViewData["PeriodicidadeId"] = new SelectList(_context.Periodicidade, "Id", "Nome");
+
             if (id == null)
             {
                 return NotFound();
@@ -101,34 +105,16 @@ namespace DadosUniversitarios.Controllers
         // POST: Fornecedos/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NumeroContrato,Periodicidade,ValorServico,DataPagamento,VencimentoContrato,Nome,CNPJ,Email,Telefone,NomeServico")] Contrato fornecedor)
+        public async Task<IActionResult> Edit(int id, Contrato fornecedor)
         {
             if (id != fornecedor.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(fornecedor);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FornecedorExists(fornecedor.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(fornecedor);
+            _context.Update(fornecedor);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         

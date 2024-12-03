@@ -107,9 +107,14 @@
                             <input asp-for="Numero" id="numero" type="text" class="form-control" placeholder="Digite o número">
                         </div>
 
-                        <!-- Botão de Enviar -->
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Cadastrar Aluno</button>
+                        <!-- Botões de Ação -->
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                            <a asp-action="Index" class="btn btn-link">
+                                <i class="fas fa-arrow-left"></i> Voltar para a lista
+                            </a>
                         </div>
                     </form>
                 </div>                

@@ -34,6 +34,8 @@ namespace DadosUniversitarios.Controllers
             }
 
             var curso = await _context.Cursos
+                .Include(c => c.Disciplinas)
+                .Include(c => c.Pessoas)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (curso == null)
             {
@@ -90,7 +92,7 @@ namespace DadosUniversitarios.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
@@ -107,6 +109,59 @@ namespace DadosUniversitarios.Controllers
         private bool CursoExists(int id)
         {
             return _context.Cursos.Any(e => e.Id == id);
+        }
+
+
+        //-----------------------MATRICULAR DISCIPLINAS----------------------------------//
+
+
+        // GET: Curso/AddDisciplina
+        public async Task<IActionResult> AddDisciplina(int? id)
+        {
+            ViewData["DisciplinaId"] = new SelectList(_context.Disciplinas, "Id", "Nome");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var curso = await _context.Cursos.FindAsync(id);
+            if (curso == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.CursoId = id;
+            return View();
+        }
+
+        // POST: Curso/AddDisciplina        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDisciplina(int cursoId, int disciplinaId)
+        {
+            var curso = await _context.Cursos.Include(c => c.Disciplinas).FirstOrDefaultAsync(c => c.Id == cursoId);
+            if (curso == null)
+            {
+                return NotFound();
+            }
+
+            // Buscar a disciplina selecionada
+            var disciplina = await _context.Disciplinas.FindAsync(disciplinaId);
+            if (disciplina == null)
+            {
+                return NotFound();
+            }
+
+
+            // Verificar se a disciplina já está vinculada ao curso
+            if (!curso.Disciplinas.Contains(disciplina))
+            {
+                curso.Disciplinas.Add(disciplina); // Adicionar a disciplina ao curso
+                _context.Update(curso);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Details", new { id = cursoId });
         }
     }
 }

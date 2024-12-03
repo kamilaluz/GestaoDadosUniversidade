@@ -1,21 +1,22 @@
 ﻿@model DadosUniversitarios.Models.Contrato
 
 @{
-    ViewData["Title"] = "Cadastrar Contrato";
-}
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
+}
 <main class="container py-7">
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-10">
             <!-- Card para centralizar e estilizar -->
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white text-center">
-                    <h1 class="h4 mb-0">Cadastrar contrato</h1>
+                    <h1 class="h4 mb-0">Editar Empresa</h1>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Create">
-                        <!-- MENSAGEM DE VALIDAÇÃO -->
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                        <input type="hidden" asp-for="Id" />
 
                         <!-- Empresa -->
                         <div class="mb-3">
@@ -32,7 +33,8 @@
                         <!-- Número contrato -->
                         <div class="mb-3">
                             <label asp-for="NumeroContrato" class="form-label">Contrato</label>
-                            <input asp-for="NumeroContrato" type="text" class="form-control" placeholder="Digite o número do contrato">
+                            <input asp-for="NumeroContrato" class="form-control" />
+                            <span asp-validation-for="NumeroContrato" class="text-danger"></span>
                         </div>
 
                         <!-- Periodicidade -->
@@ -43,22 +45,23 @@
 
                         <!-- Valor -->
                         <div class="mb-3">
-                            <label asp-for="ValorServico" class="form-label">Valor do serviço</label>
-                            <input asp-for="ValorServico" type="number" step="0.01" min="0" class="form-control" placeholder="Digite o valor do serviço">
+                            <label asp-for="ValorServico" class="form-label">Valor</label>
+                            <input asp-for="ValorServico" class="form-control" />
+                            <span asp-validation-for="ValorServico" class="text-danger"></span>
                         </div>
 
                         <!-- Data de pagamento -->
                         <div class="mb-3">
                             <label asp-for="DataPagamento" class="form-label">Dia de pagamento</label>
-                            <input asp-for="DataPagamento" type="text" class="form-control" placeholder="Digite a data de pagamento">
+                            <input asp-for="DataPagamento" type="text" class="form-control" />
                         </div>
 
-                        <!-- Vencimento -->
+                        <!-- Vencimento do contrato -->
                         <div class="mb-3">
                             <label asp-for="VencimentoContrato" class="form-label">Vencimento do contrato</label>
-                            <input asp-for="VencimentoContrato" type="date" class="form-control" placeholder="Digite o vencimento do contrato">
+                            <input asp-for="VencimentoContrato" type="date"  class="form-control" />
+                            <span asp-validation-for="VencimentoContrato" class="text-danger"></span>
                         </div>
-
 
                         <!-- Botões de Ação -->
                         <div class="d-flex justify-content-between">
@@ -70,12 +73,13 @@
                             </a>
                         </div>
                     </form>
+
                 </div>
             </div>
+
         </div>
     </div>
 </main>
-
 
 @section Scripts {
     <script>
