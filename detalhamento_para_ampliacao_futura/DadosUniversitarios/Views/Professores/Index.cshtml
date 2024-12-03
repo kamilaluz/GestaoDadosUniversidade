@@ -38,7 +38,7 @@
                         <th scope="col">Data de Nascimento</th>
                         <th scope="col">E-mail</th>
                         <th scope="col">Telefone</th>
-                        <th scope="col" class="text-center" width="350px">Ações</th>
+                        <th scope="col" class="text-center" width="200px">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,16 +53,16 @@
                             <td>@Html.DisplayFor(modelItem => item.Telefone)</td>
                             <td class="text-center">
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-2">
-                                    <i class="fas fa-edit"></i> Editar
+                                    <i class="fas fa-edit"></i> 
                                 </a>
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm me-2">
-                                    <i class="fas fa-info-circle"></i> Detalhes
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm me-2">
+                                    <i class="fas fa-info-circle"></i> 
                                 </a>
                                 <!-- Formulário para exclusão -->
                                 <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;"
                                       onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
                                     <button type="submit" class="btn btn-outline-danger btn-sm">
-                                        <i class="fas fa-trash"></i> Deletar
+                                        <i class="fas fa-trash"></i> 
                                     </button>
                                 </form>
                             </td>

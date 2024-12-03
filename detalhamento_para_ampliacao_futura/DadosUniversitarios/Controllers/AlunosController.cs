@@ -36,7 +36,10 @@ namespace DadosUniversitarios.Controllers
                 return NotFound();
             }
 
-            var aluno = await _context.Pessoas.Where(p => p.Tipo.NomeTipo == "Aluno")
+            var aluno = await _context.Pessoas
+                .Include(d => d.Disciplina)
+                .Include(c => c.Curso)
+                .Where(p => p.Tipo.NomeTipo == "Aluno")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (aluno == null)
             {
@@ -153,6 +156,59 @@ namespace DadosUniversitarios.Controllers
         private bool AlunoExists(int id)
         {
             return _context.Pessoas.Any(e => e.Id == id);
+        }
+
+
+        //-----------------------MATRICULA----------------------------------//
+
+
+        // GET: Curso/AddDisciplina
+        public async Task<IActionResult> AddDisciplina(int? id)
+        {
+            ViewData["DisciplinaId"] = new SelectList(_context.Disciplinas, "Id", "Nome");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var curso = await _context.Cursos.FindAsync(id);
+            if (curso == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.CursoId = id;
+            return View();
+        }
+
+        // POST: Curso/AddDisciplina        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDisciplina(int alunoId, int disciplinaId)
+        {
+            var aluno = await _context.Pessoas.FirstOrDefaultAsync(c => c.Id == alunoId);
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+
+            // Buscar a disciplina selecionada
+            var disciplina = await _context.Disciplinas.FindAsync(disciplinaId);
+            if (disciplina == null)
+            {
+                return NotFound();
+            }
+
+
+            // Verificar se a disciplina já está vinculada ao aluno
+            if (!aluno.Disciplina.Contains(disciplina))
+            {
+                aluno.Disciplina.Add(disciplina); // Adicionar a disciplina ao aluno
+                _context.Update(aluno);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Details", new { id = alunoId });
         }
     }
 }

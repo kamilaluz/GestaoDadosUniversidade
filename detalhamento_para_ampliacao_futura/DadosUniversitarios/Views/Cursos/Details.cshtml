@@ -19,7 +19,7 @@
             <i class="fas fa-arrow-left"></i> Voltar
         </a>
         <!-- Botão para Adicionar Disciplina -->
-        <a asp-action="AddDisciplina" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">
+        <a asp-action="AddDisciplina" asp-route-id="@Model.Id" class="btn btn-sm btn-success">
             <i class="fas fa-plus"></i> Adicionar Disciplina
         </a>
     </div>
@@ -44,10 +44,10 @@
                                 <td>@disciplina.Nome</td>
                                 <td class="text-center">
                                     <!-- Formulário para exclusão -->
-                                    <form asp-action="Delete" method="post" style="display:inline;"
-                                          onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
+                                    <form asp-action="Remover" asp-route-cursoId="@Model.Id" asp-route-disciplinaId="@disciplina.Id" method="post" sty method="post" style="display:inline;"
+                                          onsubmit="return confirm('Tem certeza que deseja remover essa disciplina?');">
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash"></i> Deletar
+                                            <i class="fas fa-trash"></i> 
                                         </button>
                                     </form>
                                 </td>

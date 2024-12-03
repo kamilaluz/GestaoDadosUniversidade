@@ -1,47 +1,109 @@
 ﻿@model DadosUniversitarios.Models.Pessoa
 
 @{
-    ViewData["Title"] = "Detalhes do Aluno";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewData["Title"] = "Detalhes do aluno";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<main class="w-full h-full flex justify-center items-center">
-    <div class="flex w-1/2 h-3/5">
-        <div class="bg-white w-full h-full p-6 rounded-lg shadow-lg">
-            <h1 class="font-semibold text-2xl mb-4">DETALHES DO ALUNO</h1>
-            <h3 class="text-lg mb-6 text-gray-700">Informações do Aluno</h3>
+<main class="container py-6">
+    <!-- Título da Página -->
+    <div class="text-center mb-5">
+        <p class="text-muted">Detalhes do aluno</p>
+        <h1 class="h3 font-weight-bold text-dark">@Model.Nome</h1>
+    </div>
 
-            <div class="mb-4">
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Número de Matrícula</label>
-                    <p class="text-gray-700">@Html.DisplayFor(model => model.NumeroMatricula)</p>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Nome</label>
-                    <p class="text-gray-700">@Html.DisplayFor(model => model.Nome)</p>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">CPF</label>
-                    <p class="text-gray-700">@Html.DisplayFor(model => model.CPF)</p>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Data de Nascimento</label>
-                    <p class="text-gray-700">@Html.DisplayFor(model => model.DataNascimento)</p>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Email</label>
-                    <p class="text-gray-700">@Html.DisplayFor(model => model.Email)</p>
-                </div>
-                <div class="flex flex-col mb-4">
-                    <label class="font-semibold">Telefone</label>
-                    <p class="text-gray-700">@Html.DisplayFor(model => model.Telefone)</p>
-                </div>
-            </div>
+    <!-- Botões de Ações -->
+    <div class="d-flex justify-content-between mb-4">
+        <!-- Botão Voltar -->
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+        <!-- Botão para Adicionar Disciplina -->
+        <a asp-action="AddDisciplina" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">
+            <i class="fas fa-plus"></i> Adicionar Disciplina
+        </a>
+    </div>
 
-            <div class="flex justify-between">
-                <a asp-action="Edit" asp-route-id="@Model?.Id" class="text-blue-600 hover:underline">Editar</a> |
-                <a asp-action="Index" class="text-blue-600 hover:underline">Voltar para a lista</a>
-            </div>
+    <!-- Cursos -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title">Cursos</h5>
+            @if (Model.Curso.Any())
+            {
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col" class="text-center" width="350px">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var curso in Model.Curso)
+                        {
+                            <tr>
+                                <td>@curso.Nome</td>
+                                <td class="text-center">
+                                    <!-- Formulário para exclusão -->
+                                    <form asp-action="Delete" method="post" style="display:inline;"
+                                          onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="fas fa-trash"></i> Deletar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">Nenhum curso vinculado a este aluno.</p>
+            }
+
         </div>
     </div>
+    <br />
+    <br />
+    <!-- Disciplinas -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title">Disciplinas</h5>
+            @if (Model.Disciplina.Any())
+            {
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col" class="text-center" width="350px">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var disciplina in Model.Disciplina)
+                        {
+                            <tr>
+                                <td>@disciplina.Nome</td>
+                                <td class="text-center">
+                                    <!-- Formulário para exclusão -->
+                                    <form asp-action="Delete" method="post" style="display:inline;"
+                                          onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="fas fa-trash"></i> Deletar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">Nenhuma disciplina vinculada a este aluno.</p>
+            }
+
+        </div>
+    </div>
+    <br />
+
 </main>

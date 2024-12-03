@@ -4,14 +4,47 @@
     ViewData["Title"] = "Adicionar Disciplina";
 }
 
-<h2>Adicionar Disciplina ao Curso</h2>
 
-<form asp-action="AddDisciplina" method="post">
-    <input type="hidden" name="cursoId" value="@ViewBag.CursoId" />
-    <div class="form-group">
-        <label for="disciplinaId">Disciplina</label>
-        <select id="disciplinaId" name="disciplinaId" class="form-control" asp-items="ViewBag.DisciplinaId"></select>
+<main class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <!-- Card para centralizar e estilizar -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h1 class="h4 mb-0">Adicionar disciplina</h1>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddDisciplina">
+                        <!-- MENSAGEM DE VALIDAÇÃO -->
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Campo oculto para Id -->
+                        <input type="hidden" name="cursoId" value="@ViewBag.CursoId" />
+
+                        <!-- Disciplina -->
+                        <div class="mb-3">
+                            <label asp-for="Disciplinas" name="disciplinaIds" class="form-label">Disciplina</label>
+                            <select asp-for="Disciplinas" name="disciplinaIds" class="form-control" asp-items="ViewBag.DisciplinaId" multiple></select>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Details" asp-route-id="@ViewBag.CursoId" class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary mt-3">Adicionar</button>
-    <a asp-action="Details" asp-route-id="@ViewBag.CursoId" class="btn btn-secondary mt-3">Cancelar</a>
-</form>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
