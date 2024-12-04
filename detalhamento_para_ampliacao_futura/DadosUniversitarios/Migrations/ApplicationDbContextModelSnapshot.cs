@@ -60,8 +60,8 @@ namespace DadosUniversitarios.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("DataPagamento")
-                        .HasColumnType("date");
+                    b.Property<int>("DataPagamento")
+                        .HasColumnType("integer");
 
                     b.Property<int>("EmpresaId")
                         .HasColumnType("integer");

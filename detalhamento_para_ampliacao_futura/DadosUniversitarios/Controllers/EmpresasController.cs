@@ -34,6 +34,10 @@ namespace DadosUniversitarios.Controllers
             }
 
             var empresa = await _context.Empresas
+                .Include(c => c.Contratos)
+                    .ThenInclude(e => e.Servico)
+                .Include(c => c.Contratos)
+                    .ThenInclude(e => e.Periodicidade)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (empresa == null)
             {

@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DadosUniversitarios.Migrations
 {
     /// <inheritdoc />
-    public partial class InicialMigration : Migration
+    public partial class AtualizacaoTabelas : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -352,9 +352,9 @@ namespace DadosUniversitarios.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     NumeroContrato = table.Column<int>(type: "integer", nullable: false),
-                    Periodicidade = table.Column<int>(type: "integer", nullable: false),
+                    PeriodicidadeId = table.Column<int>(type: "integer", nullable: false),
                     ValorServico = table.Column<double>(type: "double precision", nullable: false),
-                    DataPagamento = table.Column<DateOnly>(type: "date", nullable: false),
+                    DataPagamento = table.Column<int>(type: "integer", nullable: false),
                     VencimentoContrato = table.Column<DateOnly>(type: "date", nullable: false),
                     EmpresaId = table.Column<int>(type: "integer", nullable: false),
                     ServicoId = table.Column<int>(type: "integer", nullable: false)
@@ -366,6 +366,12 @@ namespace DadosUniversitarios.Migrations
                         name: "FK_Contratos_Empresas_EmpresaId",
                         column: x => x.EmpresaId,
                         principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Contratos_Periodicidade_PeriodicidadeId",
+                        column: x => x.PeriodicidadeId,
+                        principalTable: "Periodicidade",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -506,6 +512,11 @@ namespace DadosUniversitarios.Migrations
                 column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Contratos_PeriodicidadeId",
+                table: "Contratos",
+                column: "PeriodicidadeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Contratos_ServicoId",
                 table: "Contratos",
                 column: "ServicoId");
@@ -577,9 +588,6 @@ namespace DadosUniversitarios.Migrations
                 name: "DisciplinaPessoa");
 
             migrationBuilder.DropTable(
-                name: "Periodicidade");
-
-            migrationBuilder.DropTable(
                 name: "Usuarios");
 
             migrationBuilder.DropTable(
@@ -590,6 +598,9 @@ namespace DadosUniversitarios.Migrations
 
             migrationBuilder.DropTable(
                 name: "Empresas");
+
+            migrationBuilder.DropTable(
+                name: "Periodicidade");
 
             migrationBuilder.DropTable(
                 name: "Cursos");

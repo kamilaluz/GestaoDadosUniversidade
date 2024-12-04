@@ -17,10 +17,14 @@
                         <!-- MENSAGEM DE VALIDAÇÃO -->
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
+                        <!-- Campo oculto para Id -->
+                        <input asp-for="Id" type="hidden">
+
                         <!-- Empresa -->
                         <div class="mb-3">
                             <label asp-for="EmpresaId" class="form-label">Empresa</label>
-                            <select asp-for="EmpresaId" class="form-control" asp-items="ViewBag.EmpresaId"></select>
+                            <select asp-for="EmpresaId" class="form-control" asp-items="ViewBag.EmpresaId">                                
+                            </select>
                         </div>
 
                         <!-- Servico -->
@@ -50,7 +54,7 @@
                         <!-- Data de pagamento -->
                         <div class="mb-3">
                             <label asp-for="DataPagamento" class="form-label">Dia de pagamento</label>
-                            <input asp-for="DataPagamento" type="text" class="form-control" placeholder="Digite a data de pagamento">
+                            <input asp-for="DataPagamento" type="text" class="form-control" placeholder="Digite o dia de pagamento">
                         </div>
 
                         <!-- Vencimento -->
@@ -62,7 +66,7 @@
 
                         <!-- Botões de Ação -->
                         <div class="d-flex justify-content-between">
-                            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                            <a onclick="window.history.back()" class="btn btn-outline-secondary btn-sm">
                                 <i class="fas fa-arrow-left"></i> Voltar
                             </a>
                             <button type="submit" class="btn btn-primary">

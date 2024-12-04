@@ -12,7 +12,7 @@ namespace DadosUniversitarios.Models
         public Periodicidade Periodicidade { get; set; }
         [Required]        
         public double ValorServico { get; set; }
-        public DateOnly DataPagamento { get; set; }
+        public int DataPagamento { get; set; }
         public DateOnly VencimentoContrato { get; set; }
         public int EmpresaId { get; set; }
         public Empresa Empresa { get; set; }

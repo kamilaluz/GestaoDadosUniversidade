@@ -5,63 +5,109 @@
 
 }
 
-<div class="container mt-4">
-    <div class="text-center">
-        <h1 class="display-4">Bem-vindo ao Sistema da Universidade</h1>
-        <p class="lead">Escolha uma das opções abaixo para gerenciar informações da universidade.</p>
+<main class="container py-4">
+    <!-- Título da Página -->
+    <div class="text-center mb-5">
+        <h1 class="h3 font-weight-bold text-dark">Bem-vindo ao Sistema da Universidade</h1>
+        <p class="text-muted">Escolha uma das opções abaixo para gerenciar os cadastros.</p>
     </div>
-    <hr />
-    <div class="row text-center mt-4">
-        <!-- Opção de Cadastros -->
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card border-primary">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="card-title">Cadastros</h5>
+
+    <!-- Opções de Cadastro -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        <!-- Cartão de Cadastro de Curso -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Cursos" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-danger bg-opacity-10 text-danger mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-university fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Cursos</h5>
+                        <p class="card-text text-muted">Cadastre e edite os cursos disponíveis.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">Acesse as telas de cadastro para adicionar novos registros no sistema.</p>
-                    <a asp-controller="Cadastros" asp-action="Index" class="btn btn-primary">Acessar Cadastros</a>
-                </div>
-            </div>
+            </a>
         </div>
 
-        <!-- Opção de Alunos -->
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card border-info">
-                <div class="card-header bg-info text-white">
-                    <h5 class="card-title">Alunos</h5>
+        <!-- Cartão de Cadastro de Disciplina -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Disciplinas" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-warning bg-opacity-10 text-warning mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-book fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Disciplinas</h5>
+                        <p class="card-text text-muted">Gerencie as disciplinas oferecidas.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">Gerencie o cadastro e informações dos alunos.</p>
-                    <a asp-controller="Alunos" asp-action="Index" class="btn btn-info">Acessar Alunos</a>
-                </div>
-            </div>
+            </a>
         </div>
 
-        <!-- Opção de Professores -->
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card border-warning">
-                <div class="card-header bg-warning text-white">
-                    <h5 class="card-title">Professores</h5>
+        <!-- Cartão de Cadastro de Empresas -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Empresas" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-secondary bg-opacity-10 text-secondary mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-truck fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Empresas</h5>
+                        <p class="card-text text-muted">Gerencie o cadastro de empresas.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">Cadastre e gerencie informações dos professores.</p>
-                    <a asp-controller="Professores" asp-action="Index" class="btn btn-warning">Acessar Professores</a>
-                </div>
-            </div>
+            </a>
         </div>
 
-        <!-- Opção de Empresas -->
-        <div class="col-md-3 col-sm-6 mb-4">
-            <div class="card border-success">
-                <div class="card-header bg-success text-white">
-                    <h5 class="card-title">Fornecedores</h5>
+        <!-- Cartão de Cadastro de Alunos -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Alunos" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-info bg-opacity-10 text-info mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-graduation-cap fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Alunos</h5>
+                        <p class="card-text text-muted">Gerencie o cadastro de alunos.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">Cadastre e gerencie os fornecedores parceiros.</p>
-                    <a asp-controller="Fornecedores" asp-action="Index" class="btn btn-success">Acessar Fornecedores</a>
-                </div>
-            </div>
+            </a>
         </div>
+
+
+        <!-- Cartão de Cadastro de Professores -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Professores" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-10 text-success mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-user fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Professores</h5>
+                        <p class="card-text text-muted">Gerencie o cadastro de professores.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        
+        <!-- Cartão de Cadastro de Prestadores de Serviços -->
+        <div class="col">
+            <a asp-action="Index" asp-controller="Fornecedores" class="text-decoration-none">
+                <div class="card shadow-sm text-center border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary mx-auto mb-3" style="width: 64px; height: 64px;">
+                            <i class="fas fa-money-bill fa-2x"></i>
+                        </div>
+                        <h5 class="card-title text-dark">Prestadores de serviço</h5>
+                        <p class="card-text text-muted">Gerencie as empresas prestadoras de serviço.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
     </div>
-</div>
+</main>
+
+

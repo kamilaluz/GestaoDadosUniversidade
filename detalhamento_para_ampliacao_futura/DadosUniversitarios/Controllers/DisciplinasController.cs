@@ -34,6 +34,8 @@ namespace DadosUniversitarios.Controllers
             }
 
             var disciplina = await _context.Disciplinas
+                .Include(c => c.Cursos)
+                .Include(c => c.Pessoas)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (disciplina == null)
             {

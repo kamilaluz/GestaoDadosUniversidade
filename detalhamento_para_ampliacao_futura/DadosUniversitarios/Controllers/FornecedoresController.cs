@@ -42,31 +42,15 @@ namespace DadosUniversitarios.Controllers
             return View(contratosViewModel);
         }
 
-        // GET: Fornecedos/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var fornecedor = await _context.Contratos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (fornecedor == null)
-            {
-                return NotFound();
-            }
-
-            return View(fornecedor);
-        }
-
+        
         // GET: Fornecedos/Create
         public IActionResult Create()
         {
+
             ViewData["EmpresaId"] = new SelectList(_context.Empresas.Include(g => g.Endereco), "Id", "Nome");
             ViewData["PeriodicidadeId"] = new SelectList(_context.Periodicidade, "Id", "Nome");
             ViewData["ServicoId"] = new SelectList(_context.Servicos, "Id", "Nome");
-
+            
 
             return View();
         }
@@ -79,6 +63,7 @@ namespace DadosUniversitarios.Controllers
 
             _context.Contratos.Add(contrato);
             await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DadosUniversitarios.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241202195758_AlteracaoTabelaContratos")]
-    partial class AlteracaoTabelaContratos
+    [Migration("20241204202133_AtualizacaoTabelas")]
+    partial class AtualizacaoTabelas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,8 +63,8 @@ namespace DadosUniversitarios.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("DataPagamento")
-                        .HasColumnType("date");
+                    b.Property<int>("DataPagamento")
+                        .HasColumnType("integer");
 
                     b.Property<int>("EmpresaId")
                         .HasColumnType("integer");
