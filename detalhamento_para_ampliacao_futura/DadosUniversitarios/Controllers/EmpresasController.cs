@@ -20,9 +20,21 @@ namespace DadosUniversitarios.Controllers
         }
 
         // GET: Empresa
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Empresas.Include(s => s.NomeServico).OrderBy(a => a.Nome).ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+
+            var empresas = from a in _context.Empresas
+                         .Include(s => s.NomeServico).OrderBy(a => a.Nome)
+                         select a;
+
+            // Aplicar filtro se searchString não for nulo ou vazio
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                empresas = empresas.Where(a => a.Nome.ToLower().Contains(searchString.ToLower()));
+            }
+
+            return View(empresas.ToList());
         }
 
         // GET: Empresa/Details/5

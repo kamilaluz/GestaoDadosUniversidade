@@ -20,12 +20,22 @@ namespace DadosUniversitarios.Controllers
         }
 
         // GET: Alunos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+            ViewData["CurrentFilter"] = searchString;
 
-            return View(await _context.Pessoas
-                .Where(p => p.Tipo.NomeTipo == "Aluno")
-                .OrderBy(a => a.NumeroMatricula).ToListAsync());
+            var alunos = from a in _context.Pessoas
+                         .Where(p => p.Tipo.NomeTipo == "Aluno")
+                         .OrderBy(a => a.NumeroMatricula)
+                         select a;
+
+            // Aplicar filtro se searchString não for nulo ou vazio
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                alunos = alunos.Where(a => a.Nome.ToLower().Contains(searchString.ToLower()));
+            }
+
+            return View(alunos.ToList());
         }
 
         // GET: Alunos/Details/5
