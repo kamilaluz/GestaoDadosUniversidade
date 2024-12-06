@@ -18,12 +18,12 @@
         <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
             <i class="fas fa-arrow-left"></i> Voltar
         </a>
-        <!-- Botão para Adicionar Disciplina -->
-        <a asp-action="AddDisciplina" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">
-            <i class="fas fa-plus"></i> Adicionar Disciplina
+        <!-- Botão para Adicionar Curso -->
+        <a asp-action="AddCurso" asp-route-id="@Model.Id" class="btn btn-sm btn-success">
+            <i class="fas fa-plus"></i> Adicionar Curso
         </a>
     </div>
-
+    
     <!-- Cursos -->
     <div class="card shadow-sm border-0">
         <div class="card-body">
@@ -34,7 +34,7 @@
                     <thead class="table-light">
                         <tr>
                             <th scope="col">Nome</th>
-                            <th scope="col" class="text-center" width="350px">Ações</th>
+                            <th scope="col" class="text-center" width="200px">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,10 +44,10 @@
                                 <td>@curso.Nome</td>
                                 <td class="text-center">
                                     <!-- Formulário para exclusão -->
-                                    <form asp-action="Delete" method="post" style="display:inline;"
-                                          onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
+                                    <form asp-action="RemoverCurso" asp-route-alunoId="@Model.Id" asp-route-cursoId="@curso.Id" method="post" sty method="post" style="display:inline;"
+                                          onsubmit="return confirm('Tem certeza que deseja remover esse curso?');">
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash"></i> Deletar
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -65,6 +65,16 @@
     </div>
     <br />
     <br />
+
+
+    <!-- Botões de Ações -->
+    <div class="d-flex justify-content-end mb-4">
+        <!-- Botão para Adicionar Disciplina -->
+        <a asp-action="AddDisciplina" asp-route-id="@Model.Id" class="btn btn-sm btn-success">
+            <i class="fas fa-plus"></i> Adicionar Disciplina
+        </a>
+    </div>
+   
     <!-- Disciplinas -->
     <div class="card shadow-sm border-0">
         <div class="card-body">
@@ -75,7 +85,7 @@
                     <thead class="table-light">
                         <tr>
                             <th scope="col">Nome</th>
-                            <th scope="col" class="text-center" width="350px">Ações</th>
+                            <th scope="col" class="text-center" width="200px">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,10 +95,10 @@
                                 <td>@disciplina.Nome</td>
                                 <td class="text-center">
                                     <!-- Formulário para exclusão -->
-                                    <form asp-action="Delete" method="post" style="display:inline;"
-                                          onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
+                                    <form asp-action="Remover" asp-route-alunoId="@Model.Id" asp-route-disciplinaId="@disciplina.Id" method="post" sty method="post" style="display:inline;"
+                                          onsubmit="return confirm('Tem certeza que deseja remover essa disciplina?');">
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash"></i> Deletar
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -105,5 +115,7 @@
         </div>
     </div>
     <br />
+
+    
 
 </main>

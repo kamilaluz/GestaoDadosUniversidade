@@ -47,6 +47,9 @@ namespace DadosUniversitarios.Controllers
             }
 
             var professor = await _context.Pessoas
+                .Include(d => d.Disciplina)
+                .Include(c => c.Curso)
+                .Where(p => p.Tipo.NomeTipo == "Professor")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (professor == null)
             {
@@ -159,6 +162,150 @@ namespace DadosUniversitarios.Controllers
         private bool ProfessorExists(int id)
         {
             return _context.Pessoas.Any(e => e.Id == id);
+        }
+
+        //-----------------------MATRICULA DISCIPLINA----------------------------------//
+
+
+        // GET: Curso/AddDisciplina
+        public async Task<IActionResult> AddDisciplina(int? id)
+        {
+            ViewData["DisciplinaId"] = new SelectList(_context.Disciplinas, "Id", "Nome");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var professor = await _context.Pessoas.FindAsync(id);
+            if (professor == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.ProfessorId = id;
+            return View();
+        }
+
+        // POST: Curso/AddDisciplina        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddDisciplina(int professorId, List<int> disciplinaIds)
+        {
+            var professor = await _context.Pessoas.Include(c => c.Disciplina).FirstOrDefaultAsync(c => c.Id == professorId);
+            if (professor == null)
+            {
+                return NotFound();
+            }
+
+            // Iterar sobre os IDs das disciplinas selecionadas
+            foreach (var disciplinaId in disciplinaIds)
+            {
+                var disciplina = await _context.Disciplinas.FindAsync(disciplinaId);
+                if (disciplina != null && !professor.Disciplina.Contains(disciplina))
+                {
+                    professor.Disciplina.Add(disciplina);
+                }
+            }
+
+            _context.Update(professor);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", new { id = professorId });
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Remover(int professorId, int disciplinaId)
+        {
+            // Carregar o aluno com as disciplinas relacionadas
+            var professor = await _context.Pessoas
+                                      .Include(c => c.Disciplina)
+                                      .FirstOrDefaultAsync(c => c.Id == professorId);
+
+            // Localizar a disciplina na lista de disciplinas do curso
+            var disciplina = professor.Disciplina.FirstOrDefault(d => d.Id == disciplinaId);
+            if (disciplina != null)
+            {
+                // Remover a disciplina do aluno
+                professor.Disciplina.Remove(disciplina);
+
+                // Salvar as alterações no banco de dados
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Details), new { id = professorId });
+        }
+
+        //-----------------------MATRICULA CURSO----------------------------------//
+
+
+        // GET: Curso/AddCurso
+        public async Task<IActionResult> AddCurso(int? id)
+        {
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Nome");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var professor = await _context.Pessoas.FindAsync(id);
+            if (professor == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.ProfessorId = id;
+            return View();
+        }
+
+        // POST: Curso/AddCurso        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddCurso(int professorId, List<int> cursosIds)
+        {
+            var professor = await _context.Pessoas.Include(c => c.Curso).FirstOrDefaultAsync(c => c.Id == professorId);
+            if (professor == null)
+            {
+                return NotFound();
+            }
+
+            // Iterar sobre os IDs dos cursos selecionados
+            foreach (var cursoId in cursosIds)
+            {
+                var curso = await _context.Cursos.FindAsync(cursoId);
+                if (curso != null && !professor.Curso.Contains(curso))
+                {
+                    professor.Curso.Add(curso);
+                }
+            }
+
+            _context.Update(professor);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", new { id = professorId });
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoverCurso(int professorId, int cursoId)
+        {
+            // Carregar o aluno com os cursos relacionados
+            var professor = await _context.Pessoas
+                                      .Include(c => c.Curso)
+                                      .FirstOrDefaultAsync(c => c.Id == professorId);
+
+            // Localizar o curso na lista de cursos do aluno
+            var curso = professor.Curso.FirstOrDefault(d => d.Id == cursoId);
+            if (curso != null)
+            {
+                // Remover curso do aluno
+                professor.Curso.Remove(curso);
+
+                // Salvar as alterações no banco de dados
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Details), new { id = professorId });
         }
     }
 }

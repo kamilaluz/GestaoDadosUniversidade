@@ -1,0 +1,65 @@
+﻿@model DadosUniversitarios.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Adicionar Curso";
+}
+
+
+<main class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <!-- Card para centralizar e estilizar -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h1 class="h4 mb-0">Adicionar curso</h1>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddCurso">
+                        <!-- MENSAGEM DE VALIDAÇÃO -->
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <!-- Campo oculto para Id -->
+                        <input type="hidden" name="professorId" value="@ViewBag.ProfessorId" />
+
+                        <!-- Curso -->
+                        <div class="mb-3">
+                            <label for="cursoIds" class="form-label">Cursos</label>
+                            <select id="cursoIds" name="cursosIds" class="form-control" asp-items="ViewBag.CursoId" multiple></select>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Details" asp-route-id="@ViewBag.ProfessorId" class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <!-- Estilos e scripts do Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Inicializar Select2 no campo de cursos
+            $('#cursoIds').select2({
+                placeholder: "Selecione os cursos",
+                allowClear: true,
+                width: '100%' // Garante que o componente preencha a largura disponível
+            });
+        });
+    </script>
+}

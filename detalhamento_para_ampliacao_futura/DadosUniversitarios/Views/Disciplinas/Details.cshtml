@@ -61,23 +61,13 @@
                     <thead class="table-light">
                         <tr>
                             <th scope="col">Nome</th>
-                            <th scope="col" class="text-center" width="200px">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var professor in Model.Pessoas.Where(p => p.Tipo.NomeTipo == "Professor"))
                         {
                             <tr>
-                                <td>@professor.Nome</td>
-                                <td class="text-center">
-                                    <!-- Formulário para exclusão -->
-                                    <form asp-action="Delete" method="post" style="display:inline;"
-                                          onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
-                                        <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
+                                <td>@professor.Nome</td>                                
                             </tr>
                         }
 
@@ -103,23 +93,13 @@
                     <thead class="table-light">
                         <tr>
                             <th scope="col">Nome</th>
-                            <th scope="col" class="text-center" width="200px">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var aluno in Model.Pessoas.Where(p => p.Tipo.NomeTipo == "Aluno"))
                         {
                             <tr>
-                                <td>@aluno.Nome</td>
-                                <td class="text-center">
-                                    <!-- Formulário para exclusão -->
-                                    <form asp-action="Delete" method="post" style="display:inline;"
-                                          onsubmit="return confirm('Tem certeza que deseja excluir este curso?');">
-                                        <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
+                                <td>@aluno.Nome</td>                                
                             </tr>
                         }
 

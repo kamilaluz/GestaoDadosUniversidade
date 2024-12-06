@@ -36,6 +36,7 @@ namespace DadosUniversitarios.Controllers
             var curso = await _context.Cursos
                 .Include(c => c.Disciplinas)
                 .Include(c => c.Pessoas)
+                .ThenInclude(t => t.Tipo)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (curso == null)
             {
