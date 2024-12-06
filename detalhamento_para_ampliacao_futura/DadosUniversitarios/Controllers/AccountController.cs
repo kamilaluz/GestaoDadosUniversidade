@@ -25,18 +25,14 @@ namespace DadosUniversitarios.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(AccountLoginViewModel login)
+        public async Task<IActionResult> Login(Usuario login)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(login);
-            }
-
-            var usuarioLogado = await _signInManager.PasswordSignInAsync(login.Username, login.Password, false, false);
+            
+            var usuarioLogado = await _signInManager.PasswordSignInAsync(login.Nome, login.Senha, false, false);
 
             if (usuarioLogado.Succeeded)
             {
-                return RedirectToAction("Index", "Eventos");
+                return RedirectToAction("Index", "Home");
             }
 
             ModelState.AddModelError(string.Empty, "Login ou senha inválidos.");
@@ -51,53 +47,43 @@ namespace DadosUniversitarios.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(Usuario register)
         {
-            // Verificar se o e-mail já está cadastrado            
+            if (register.Senha != register.ConfirmacaoSenha)
+            {
+                ModelState.AddModelError(string.Empty, "As senhas não coincidem.");
+                return View(register);
+            }
+
+            // Verificar se o e-mail já está cadastrado
             var existingUser = await _userManager.FindByEmailAsync(register.Email);
-
-
             if (existingUser != null)
             {
                 ModelState.AddModelError(string.Empty, "Você já está registrado no sistema.");
+                return View(register);
             }
 
-            // Verificar se o e-mail já está cadastrado na tabela Usuario
-            var emailCadastrado = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.Email == register.Email);
-
-
-            if (emailCadastrado == null)
+            // Criar o usuário no sistema Identity
+            var user = new IdentityUser
             {
-                var novoUsuario = new Usuario()
-                {
-                    Nome = register.Nome,
-                    Email = register.Email,
-                    Senha = register.Senha,
-                    ConfirmacaoSenha = register.ConfirmacaoSenha,                    
-                };
-                _context.Add(novoUsuario);
-            }
-            else
-            {
-                // Atualizar usuário existente
-                emailCadastrado.Nome = register.Nome;
-                emailCadastrado.Email = register.Email;
-                emailCadastrado.Senha = register.Senha;
-                emailCadastrado.ConfirmacaoSenha = register.ConfirmacaoSenha;
-
-            }
-
-            await _context.SaveChangesAsync();
-
-            // Registrar no sistema Identity
-            var user = new IdentityUser()
-            {
-                UserName = register.Nome,
+                UserName = register.Nome, // Usando o email como nome de usuário
                 Email = register.Email
             };
-            await _userManager.CreateAsync(user, register.Senha);
-            await _signInManager.SignInAsync(user, false);
 
-            return RedirectToAction("Index", "Eventos");
+            // Criar o usuário com a senha criptografada
+            var result = await _userManager.CreateAsync(user, register.Senha);
+
+            if (result.Succeeded)
+            {
+                // Login automático após o registro
+                await _signInManager.SignInAsync(user, false);
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(register);
 
         }
 

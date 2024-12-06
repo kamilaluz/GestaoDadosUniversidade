@@ -8,23 +8,11 @@
         var usuario = await UserManager.GetUserAsync(User);
         if (usuario != null)
         {
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Olá, @usuario.UserName!
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li>
-                        <a class="dropdown-item" asp-area="Identity" asp-controller="Account" asp-action="Manage">Gerenciar Conta</a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="dropdown-item p-0 m-0">
-                            <button type="submit" class="btn btn-link text-decoration-none text-dark w-100 text-start">Logout</button>
-                        </form>
-                    </li>
-                </ul>
+            <li>
+                <a class="nav-link" >Olá, @usuario.UserName!</a>
+            </li>
+            <li >
+                <a class="nav-link" asp-action="Logout" asp-controller="Account">Logout</a>
             </li>
         }
         else
@@ -36,11 +24,11 @@
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-controller="Account" asp-action="Login">Login</a>
+        <li>
+            <a class="nav-link" asp-area="Identity" asp-action="Login" asp-controller="Account">Login</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-controller="Account" asp-action="Register">Registrar</a>
+        <li>
+            <a class="nav-link" asp-area="Identity" asp-action="Register" asp-controller="Account">Registrar</a>
         </li>
     }
 </ul>

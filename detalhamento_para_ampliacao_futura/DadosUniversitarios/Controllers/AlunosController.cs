@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DadosUniversitarios.Models;
 using DadosUniversitarios.Services;
 using NuGet.Packaging.Signing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DadosUniversitarios.Controllers
 {
+    [Authorize]
     public class AlunosController : Controller
     {
         private readonly ApplicationDbContext _context;

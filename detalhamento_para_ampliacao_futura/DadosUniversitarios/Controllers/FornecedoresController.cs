@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using DadosUniversitarios.Models;
 using DadosUniversitarios.Services;
 using DadosUniversitarios.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DadosUniversitarios.Controllers
 {
+    [Authorize]
     public class FornecedoresController : Controller
     {
         private readonly ApplicationDbContext _context;

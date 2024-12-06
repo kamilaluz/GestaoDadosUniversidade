@@ -1,73 +1,60 @@
-﻿@using DadosUniversitarios.Models
-@model Usuario
+﻿@model DadosUniversitarios.Models.Usuario
 
 @{
-    Layout = "~/Views/Shared/_LayoutRegister.cshtml";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";  // Usando o mesmo layout do login
 }
 
-<main class="w-full h-screen flex justify-center items-center bg-gray-100">
-    <div class="flex w-4/5 lg:w-1/2 h-auto bg-white shadow-lg rounded-lg">
-        <div class="w-full px-6 py-8">
-            <!-- LINK PARA VOLTAR -->
-            <div class="text-center mt-4">
-                <button type="button" onclick="window.history.back()"
-                        class="text-blue-600 hover:underline text-sm">
-                    Voltar
-                </button>
+<main class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f8f9fa;">
+    <div class="card shadow border-0" style="max-width: 420px; width: 100%;">
+        <div class="card-body">
+            <!-- Título -->
+            <div class="text-center mb-4">
+                <h1 class="h4 font-weight-bold text-dark">Crie sua conta</h1>
+                <p class="text-muted mb-0">Preencha os dados abaixo para registrar-se.</p>
             </div>
+
             <!-- Formulário -->
-            <form asp-action="Register" class="flex flex-col space-y-6">
+            <form asp-action="Register">
+                <!-- Resumo de erros -->
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <!-- Nome de Usuário -->
+                <div class="mb-3">
+                    <label asp-for="Nome" class="form-label text-dark font-weight-semibold">Nome de usuário</label>
+                    <input asp-for="Nome" type="text" placeholder="Digite seu nome de usuário" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+                <!-- E-mail -->
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label text-dark font-weight-semibold">E-mail</label>
+                    <input asp-for="Email" type="email" placeholder="Digite seu e-mail" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <!-- Senha -->
+                <div class="mb-3">
+                    <label asp-for="Senha" class="form-label text-dark font-weight-semibold">Senha</label>
+                    <input asp-for="Senha" type="password" placeholder="Digite sua senha" class="form-control" />
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+
+                <!-- Confirmar Senha -->
+                <div class="mb-3">
+                    <label asp-for="ConfirmacaoSenha" class="form-label text-dark font-weight-semibold">Confirmar Senha</label>
+                    <input asp-for="ConfirmacaoSenha" type="password" placeholder="Confirme sua senha" class="form-control" />
+                    <span asp-validation-for="ConfirmacaoSenha" class="text-danger"></span>
+                </div>
+
+                <!-- Botão de Registro -->
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary">Criar Conta</button>
+                </div>
+
+                <!-- Link para login -->
                 <div class="text-center">
-                    <h1 class="text-2xl font-bold text-gray-800">Crie a sua conta</h1>
-                    <p class="text-sm text-gray-600">Não esqueça de fazer login para aproveitar nosso site</p>
-                </div>
-
-                <!-- Campo Nome -->
-                <div class="flex flex-col">
-                    <label asp-for="Nome" class="text-sm font-medium text-gray-700 mb-2">Nome completo</label>
-                    <div class="relative">
-                        <input asp-for="Nome" type="text" placeholder="Digite seu nome completo"
-                               class="w-full py-3 px-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
-                        <span asp-validation-for="Nome" class="text-red-500 text-sm mt-1"></span>
-                    </div>
-                </div>
-
-                <!-- Campo Email -->
-                <div class="flex flex-col">
-                    <label asp-for="Email" class="text-sm font-medium text-gray-700 mb-2">E-mail</label>
-                    <div class="relative">
-                        <input asp-for="Email" type="email" placeholder="Digite o seu e-mail"
-                               class="w-full py-3 px-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
-                        <span asp-validation-for="Email" class="text-red-500 text-sm mt-1"></span>
-                    </div>
-                </div>
-
-                <!-- Campo Senha -->
-                <div class="flex flex-col">
-                    <label asp-for="Senha" class="text-sm font-medium text-gray-700 mb-2">Senha</label>
-                    <div class="relative">
-                        <input asp-for="Senha" type="password" placeholder="Digite sua senha"
-                               class="w-full py-3 px-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
-                        <span asp-validation-for="Senha" class="text-red-500 text-sm mt-1"></span>
-                    </div>
-                </div>
-
-                <!-- Campo Confirmar Senha -->
-                <div class="flex flex-col">
-                    <label asp-for="ConfirmacaoSenha" class="text-sm font-medium text-gray-700 mb-2">Confirmar senha</label>
-                    <div class="relative">
-                        <input asp-for="ConfirmacaoSenha" type="password" placeholder="Confirme sua senha"
-                               class="w-full py-3 px-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
-                        <span asp-validation-for="ConfirmacaoSenha" class="text-red-500 text-sm mt-1"></span>
-                    </div>
-                </div>
-
-                <!-- Botão de registro -->
-                <div>
-                    <button type="submit"
-                            class="w-full py-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-bold transition">
-                        Criar conta
-                    </button>
+                    <span class="text-muted small">Já possui uma conta?</span>
+                    <a asp-action="Login" class="text-decoration-none text-primary font-weight-semibold">Faça login</a>
                 </div>
             </form>
         </div>
@@ -75,7 +62,6 @@
 </main>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
 }

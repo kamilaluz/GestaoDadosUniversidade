@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DadosUniversitarios.Models;
 using DadosUniversitarios.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DadosUniversitarios.Controllers
 {
+    [Authorize]
     public class CursosController : Controller
     {
         private readonly ApplicationDbContext _context;
