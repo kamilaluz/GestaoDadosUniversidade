@@ -80,9 +80,8 @@ namespace DadosUniversitarios.Controllers
         public async Task<IActionResult> Create(Pessoa aluno, Endereco endereco)
         {
             // Busca pelo endereço com base na rua
-            var enderecoExistente = await _context.Enderecos
-                .FirstOrDefaultAsync(e => e.NomeRua == endereco.NomeRua);
-
+            var enderecoExistente = await _context.Enderecos.FindAsync(endereco);           
+            
             if (enderecoExistente == null)
             {
                 // Caso o endereço não exista, cria um novo
